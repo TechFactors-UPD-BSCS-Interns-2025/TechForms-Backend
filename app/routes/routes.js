@@ -5,6 +5,7 @@ const { RoleRoutes } = require("./role/role_routes");
 const { ApproverRoutes } = require("./approver/approver_routes");
 const { UserProfileRoutes } = require("./user_profile/user_profile_routes");
 const { FlierRoutes } = require("./flier/flier_routes");
+const { PurposeOfTravelRoutes } = require("./purpose_of_travel/purpose_of_travel_routes");
 
 var router = express.Router();
 
@@ -14,5 +15,6 @@ router.use("/role", RoleRoutes);
 router.use("/approver", ApproverRoutes);
 router.use("/user_profile", UserProfileRoutes);
 router.use("/flier", FlierRoutes);
+router.use("/purpose_of_travel", PurposeOfTravelRoutes);
 
 module.exports = router;
