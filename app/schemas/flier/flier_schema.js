@@ -21,11 +21,11 @@
  *         title:
  *           type: string
  *
- *     DepartmentGetInformationResponse:
+ *     FlierGetInformationResponse:
  *       allOf:
  *         - $ref: '#/components/schemas/FlierGetInformation'
  *         - $ref: '#/components/schemas/TimeStamps'
- *     DepartmentsGetInformationResponse:
+ *     FlierGetInformationResponse:
  *       type: array
  *       items:
  *         $ref: '#/components/schemas/FlierGetInformationResponse'
