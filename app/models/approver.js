@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     deleted_by: DataTypes.INTEGER,
   }, {
     sequelize,
-    modelName: 'approver',
+    modelName: 'Approver',
   });
   return Approver;
 };

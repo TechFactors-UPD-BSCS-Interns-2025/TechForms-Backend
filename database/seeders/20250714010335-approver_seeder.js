@@ -1,7 +1,5 @@
 'use strict';
 
-const approvers = require('../../app/models/approver');
-
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
