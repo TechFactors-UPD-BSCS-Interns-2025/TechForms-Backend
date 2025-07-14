@@ -70,6 +70,8 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    await queryInterface.bulkDelete('fliers', null, {});
+    await queryInterface.bulkDelete('fliers', null, {
+      truncate: true,
+    });
   }
 };
