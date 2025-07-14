@@ -25,7 +25,7 @@ module.exports = {
 
   async down (queryInterface, Sequelize) {
     await queryInterface.bulkDelete('roles', null, {
-      // truncate: true,
+      truncate: true,
     });
   }
 };
