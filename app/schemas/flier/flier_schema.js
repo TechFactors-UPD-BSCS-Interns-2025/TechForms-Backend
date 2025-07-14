@@ -25,7 +25,7 @@
  *       allOf:
  *         - $ref: '#/components/schemas/FlierGetInformation'
  *         - $ref: '#/components/schemas/TimeStamps'
- *     FlierGetInformationResponse:
+ *     FliersGetInformationResponse:
  *       type: array
  *       items:
  *         $ref: '#/components/schemas/FlierGetInformationResponse'
