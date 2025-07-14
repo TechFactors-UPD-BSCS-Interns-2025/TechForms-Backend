@@ -18,6 +18,12 @@ module.exports = {
       last_name: {
         type: Sequelize.STRING
       },
+      department_id: {
+        type: Sequelize.INTEGER
+      },
+      role_id: {
+        type: Sequelize.INTEGER
+      },
       profile_photo: {
         type: Sequelize.STRING
       },
