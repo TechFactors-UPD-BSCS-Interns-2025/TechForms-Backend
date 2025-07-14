@@ -109,7 +109,7 @@ module.exports = {
 
   async down (queryInterface, Sequelize) {
     await queryInterface.bulkDelete('departments', null, {
-      // truncate: true,
+      truncate: true,
     });
   }
 };
