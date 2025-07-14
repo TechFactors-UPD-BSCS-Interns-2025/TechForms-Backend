@@ -7,6 +7,7 @@ const { UserProfileRoutes } = require("./user_profile/user_profile_routes");
 const { FlierRoutes } = require("./flier/flier_routes");
 const { PurposeOfTravelRoutes } = require("./purpose_of_travel/purpose_of_travel_routes");
 const { BookingDetailsRoutes } = require("./booking_details/booking_details_routes");
+const { UserCredentialsRoutes } = require("./user_credentials/user_credentials_routes");
 
 var router = express.Router();
 
@@ -18,5 +19,6 @@ router.use("/user_profile", UserProfileRoutes);
 router.use("/flier", FlierRoutes);
 router.use("/purpose_of_travel", PurposeOfTravelRoutes);
 router.use("/booking_details", BookingDetailsRoutes);
+router.use("/user_credentials", UserCredentialsRoutes);
 
 module.exports = router;
