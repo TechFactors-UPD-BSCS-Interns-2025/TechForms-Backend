@@ -7,6 +7,33 @@ const { ApproverController } = require('../../controllers/approver/approver_cont
 
 /**
  *  @openapi
+ *  /api/v1/approver/create:
+ *    post:
+ *      tags: 
+ *        - Approver
+ *      description: Create Approver API.
+ *      summary: Create Approver
+ *      security: 
+ *        - bearerAuth: []
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      $ref: '#/components/schemas/ApproverGetInformation'
+ *      responses:
+ *        200:
+ *          description: Ok
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/ApproverGetInformationResponse'
+*/
+router.post('/create', ApproverController.create)
+
+/**
+ * 
+ *  @openapi
  *  /api/v1/approver/all:
  *    get:
  *      tags: 
@@ -50,5 +77,65 @@ router.get('/all', ApproverController.all)
  *      
 */
 router.get('/:id', ApproverController.get)
+
+/**
+ *  @openapi
+ *  /api/v1/approver/{id}:
+ *    put:
+ *      tags: 
+ *        - Approver
+ *      description: Update Specific Approver by Id API.
+ *      summary: Update Specific Approver
+ *      security: 
+ *        - bearerAuth: []
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          schema:
+ *           type: integer
+ *          required: true
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      $ref: '#/components/schemas/ApproverGetInformation'
+ *      responses:
+ *        200:
+ *          description: Ok
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/ApproverGetInformationResponse'
+ *      
+*/
+router.put('/:id', ApproverController.update)
+
+/**
+ *  @openapi
+ *  /api/v1/approver/{id}:
+ *    delete:
+ *      tags: 
+ *        - Approver
+ *      description: Delete Specific Approver by Id API.
+ *      summary: Delete Specific Approver
+ *      security: 
+ *        - bearerAuth: []
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          schema:
+ *           type: integer
+ *          required: true
+ *      responses:
+ *        200:
+ *          description: Ok
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/ApproverGetInformationResponse'
+ *      
+*/
+router.delete('/:id', ApproverController.delete)
 
 module.exports.ApproverRoutes = router

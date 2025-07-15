@@ -5,8 +5,6 @@
  *     ApproverGetInformation:
  *       type: object
  *       properties:
- *         id:
- *           type: integer
  *         approver_name:
  *           type: string
  *     ApproverGetInformationResponse:

@@ -3,14 +3,30 @@ const { Op } = require("sequelize");
 const { PurposeOfTravel, sequelize } = require("../../models/");
 
 const { CREATED, INTERNAL_SERVER_ERROR, NOT_FOUND, OK, PRECONDITION_FAILED } = require('../../constants/http/status_codes');
+const { message } = require("mailersend/src/modules/messages");
 
 
 const PurposeOfTravelController = {
+
+  create: async (req, res) => {
+    await sequelize.transaction(async (t) => {
+      try{
+        const purposeOfTravels = await PurposeOfTravel.create({
+          'purpose_name': req.body.purpose_name,
+          // 'created_by': req.user.id,
+        }, {transaction: t});
+        res.status(OK).json({PurposeOfTravels: purposeOfTravels})
+      } catch(error){
+        res.status(INTERNAL_SERVER_ERROR).json({message: error.message})
+      }
+    })
+  },
   all: async (req, res) => {
     await sequelize.transaction(async (t) => {
       try {
         const purposes = await PurposeOfTravel.findAll({
           attributes: ['id', 'purpose_name', 'created_by', 'created_at', 'updated_by', 'updated_at', 'deleted_by', 'deleted_at']
+
         });
         res.json(purposes);
       } catch (error) {
@@ -46,6 +62,51 @@ const PurposeOfTravelController = {
       }
     });
   },
+  update: async (req, res) => {
+    await sequelize.transaction( async (t) => {
+      try{
+        const purpose = await PurposeOfTravel.findOne({
+          where: {id: req.params.id}
+        });
+
+        if(!purpose){
+          res.status(NOT_FOUND).json({message: "Purpose Not Found"});
+        } 
+        await purpose.update({
+          purpose_name: req.body.purpose_name,
+          // updated_by: req.user.id
+        }, {transaction: t});
+
+        return res.status(OK).json({PurposeOfTravel: purpose});
+        
+      }catch(e){
+        res.status(INTERNAL_SERVER_ERROR).json({message: e.message})
+      }
+    })
+  },
+  delete: async (req, res) => {
+    await sequelize.transaction( async (t) => {
+      try{
+        const purpose = await PurposeOfTravel.findOne({
+          where: {id: req.params.id}
+        });
+
+        if(!purpose){
+          res.status(NOT_FOUND).json({message: "Purpose Not Found"});
+        }
+        
+        await purpose.destroy({
+          // deleted_by: req.user.id
+          force: false,
+        }, {transaction: t});
+
+        return res.status(OK).json({message: 'Purpose Destroyed'});
+        
+      }catch(e){
+        res.status(INTERNAL_SERVER_ERROR).json({message: e.message})
+      }
+    })
+  }
 };
 
 module.exports.PurposeOfTravelController = PurposeOfTravelController;
