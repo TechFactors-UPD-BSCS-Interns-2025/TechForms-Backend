@@ -11,13 +11,13 @@
  *           type: integer
  *         status_id:
  *           type: integer
- *     ApproverGetInformationResponse:
+ *     RequestGetInformationResponse:
  *       allOf:
- *         - $ref: '#/components/schemas/ApproverGetInformation'
+ *         - $ref: '#/components/schemas/RequestGetInformation'
  *         - $ref: '#/components/schemas/TimeStamps'
- *     ApproversGetInformationResponse:
+ *     RequestsGetInformationResponse:
  *       type: array
  *       items:
- *         $ref: '#/components/schemas/ApproverGetInformationResponse'
+ *         $ref: '#/components/schemas/RequestGetInformationResponse'
  * 
  */
