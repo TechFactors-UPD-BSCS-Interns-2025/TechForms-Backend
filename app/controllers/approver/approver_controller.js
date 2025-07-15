@@ -6,6 +6,19 @@ const { CREATED, INTERNAL_SERVER_ERROR, NOT_FOUND, OK, PRECONDITION_FAILED } = r
 
 
 const ApproverController = {
+  create: async (req, res) => {
+    await sequelize.transaction(async (t) => {
+      try{
+        const approver = await Approver.create({
+          'approver_name': req.body.approver_name,
+          // 'created_by': req.user.id,
+        }, {transaction: t});
+        res.status(OK).json({Approver: approver})
+      } catch(error){
+        res.status(INTERNAL_SERVER_ERROR).json({message: error.message})
+      }
+    })
+  },
   all: async (req, res) => {
     await sequelize.transaction(async (t) => {
       try {
@@ -46,6 +59,51 @@ const ApproverController = {
       }
     });
   },
+  update: async (req, res) => {
+    await sequelize.transaction( async (t) => {
+      try{
+        const approver = await Approver.findOne({
+          where: {id: req.params.id}
+        });
+
+        if(!approver){
+          res.status(NOT_FOUND).json({message: "Approver Not Found"});
+        } 
+        await approver.update({
+          approver_name: req.body.approver_name,
+          // updated_by: req.user.id
+        }, {transaction: t});
+
+        return res.status(OK).json({Approver: approver});
+        
+      }catch(e){
+        res.status(INTERNAL_SERVER_ERROR).json({message: e.message})
+      }
+    })
+  },
+  delete: async (req, res) => {
+    await sequelize.transaction( async (t) => {
+      try{
+        const approver = await Approver.findOne({
+          where: {id: req.params.id}
+        });
+
+        if(!approver){
+          res.status(NOT_FOUND).json({message: "Approver Not Found"});
+        }
+        
+        await approver.destroy({
+          // deleted_by: req.user.id
+          force: false,
+        }, {transaction: t});
+
+        return res.status(OK).json({message: 'Approver Destroyed'});
+        
+      }catch(e){
+        res.status(INTERNAL_SERVER_ERROR).json({message: e.message})
+      }
+    })
+  }
 };
 
 module.exports.ApproverController = ApproverController;
