@@ -1,18 +1,18 @@
 const express = require('express')
 const router = express.Router()
 
-const { FlierController } = require('../../controllers/flier/flier_controller')
+const { RequestController } = require('../../controllers/request/request_controller')
 
 // TODO: Update schema ref
 
 /**
  *  @openapi
- *  /api/v1/flier/all:
+ *  /api/v1/request/all:
  *    get:
  *      tags: 
- *        - Flier
- *      description: GET All Flier API.
- *      summary: Get All Flier
+ *        - Request
+ *      description: GET All Requests API.
+ *      summary: Get All Requests
  *      security: 
  *        - bearerAuth: []
  *      responses:
@@ -21,17 +21,17 @@ const { FlierController } = require('../../controllers/flier/flier_controller')
  *          content:
  *            application/json:
  *              schema:
- *                $ref: '#/components/schemas/FliersGetInformationResponse'
+ *                $ref: '#/components/schemas/RequestsGetInformationResponse'
 */
-router.get('/all', FlierController.all)
+router.get('/all', RequestController.all)
 /**
  *  @openapi
- *  /api/v1/flier/{id}:
+ *  /api/v1/request/{id}:
  *    get:
  *      tags: 
- *        - Flier
- *      description: GET Specific Flier by Id API.
- *      summary: Get Specific Flier
+ *        - Request
+ *      description: GET Specific Request by Id API.
+ *      summary: Get Specific Request
  *      security: 
  *        - bearerAuth: []
  *      parameters:
@@ -46,9 +46,9 @@ router.get('/all', FlierController.all)
  *          content:
  *            application/json:
  *              schema:
- *                $ref: '#/components/schemas/FlierGetInformationResponse'
+ *                $ref: '#/components/schemas/RequestGetInformationResponse'
  *      
 */
-router.get('/:id', FlierController.get)
+router.get('/:id', RequestController.get)
 
-module.exports.FlierRoutes = router
+module.exports.RequestRoutes = router
