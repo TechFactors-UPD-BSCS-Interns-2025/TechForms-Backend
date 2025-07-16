@@ -63,8 +63,28 @@ const UserCredentialsController = {
             where: {
               id: req.params.id,
             },
-            attributes: ['id', 'profile_id', 'username', 'password', 'email', 'created_by', 'phone', 'created_at', 'updated_by', 'updated_at', 'deleted_by', 'deleted_at']
-          
+            attributes: [
+            'id', 
+            'profile_id', 
+            'username', 
+            'password', 
+            'email', 
+            'created_by', 
+            'phone', 
+            ],
+            include: [
+              {
+                model: UserProfile,
+                attributes: [
+                  'first_name',
+                  'middle_name',
+                  'last_name',
+                  'department_id',
+                  'role_id',
+                  'profile_photo',
+                ],
+              }
+            ]
           },
         );
 

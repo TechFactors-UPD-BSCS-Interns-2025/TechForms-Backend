@@ -67,7 +67,29 @@ const UserProfileController = {
             where: {
               id: req.params.id,
             },
-            attributes: ['id', 'first_name', 'middle_name', 'last_name', 'department_id', 'role_id', 'profile_photo', 'created_by', 'created_at', 'updated_by', 'updated_at', 'deleted_by', 'deleted_at']
+            attributes: [
+              'id', 
+              'first_name', 
+              'middle_name', 
+              'last_name', 
+              'profile_photo', 
+            ],
+            include: [
+              {
+                model: Department,
+                attributes: [
+                  'id',
+                  'department_name'
+                ],
+              },
+              {
+                model: Role,
+                attributes: [
+                  'id',
+                  'role_name'
+                ]
+              }
+            ]
           
           },
         );
