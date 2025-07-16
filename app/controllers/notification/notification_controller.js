@@ -1,19 +1,21 @@
 const { Op } = require("sequelize");
 
-const { Approver, sequelize } = require("../../models/");
+const { Notification, sequelize } = require("../../models/");
 
 const { CREATED, INTERNAL_SERVER_ERROR, NOT_FOUND, OK, PRECONDITION_FAILED } = require('../../constants/http/status_codes');
 
 
-const ApproverController = {
+const NotificationController = {
   create: async (req, res) => {
     await sequelize.transaction(async (t) => {
       try{
-        const approver = await Approver.create({
-          'approver_name': req.body.approver_name,
+        const notification = await Notification.create({      
+          'user_id': req.body.user_id,
+          'message': req.body.message,
+          'is_read': req.body.is_read,
           // 'created_by': req.user.id,
         }, {transaction: t});
-        return res.status(CREATED).json({Approver: approver});
+        return res.status(OK).json({Notification: notification});
       } catch(error){
         return res.status(INTERNAL_SERVER_ERROR).json({message: error.message})
       }
@@ -22,10 +24,10 @@ const ApproverController = {
   all: async (req, res) => {
     await sequelize.transaction(async (t) => {
       try {
-        const approvers = await Approver.findAll({
-          attributes: ['id', 'approver_name', 'created_by', 'created_at', 'updated_by', 'updated_at', 'deleted_by', 'deleted_at']
+        const notifications = await Notification.findAll({
+          attributes: ['id', 'user_id', 'message', 'is_read', 'created_by', 'created_at', 'updated_by', 'updated_at', 'deleted_by', 'deleted_at']
         });
-        return res.json(approvers);
+        return res.json(notifications);
       } catch (error) {
         return res.status(INTERNAL_SERVER_ERROR).json({message: error.message});
       }
@@ -34,44 +36,46 @@ const ApproverController = {
   get: async (req, res) => {
     await sequelize.transaction(async (t) => {
       try {
-        const approver = await Approver.findOne(
+        const notification = await notification.findOne(
           {
             where: {
               id: req.params.id,
             },
-            attributes: ['id', 'approver_name', 'created_by', 'created_at', 'updated_by', 'updated_at', 'deleted_by', 'deleted_at']
+            attributes: ['id', 'user_id', 'message', 'is_read', 'created_by', 'created_at', 'updated_by', 'updated_at', 'deleted_by', 'deleted_at']
           
           },
         );
 
-        if (!approver) {
+        if (!notification) {
           return res.status(NOT_FOUND).json({
             message: `No matching record with ${req.params.id}`,
-          });
+          });          
         }
 
-        return res.status(OK).json(approver);
+        return res.status(OK).json(notification);        
       } catch (error) {
-        return res.status(INTERNAL_SERVER_ERROR).json({ message: error.message });
+        return res.status(INTERNAL_SERVER_ERROR).json({ message: error.message });        
       }
     });
   },
   update: async (req, res) => {
     await sequelize.transaction( async (t) => {
       try{
-        const approver = await Approver.findOne({
+        const notification = await Notification.findOne({
           where: {id: req.params.id}
         });
 
-        if(!approver){
-          return res.status(NOT_FOUND).json({message: "Approver Not Found"});          
+        if(!notification){
+          return res.status(NOT_FOUND).json({message: "Notification Not Found"});          
         } 
-        await approver.update({
-          approver_name: req.body.approver_name,
+        await notification.update({
+          user_id: req.body.user_id,
+          message: req.body.message,
+          is_read: req.body.is_read,
           // updated_by: req.user.id
         }, {transaction: t});
 
-        return res.status(OK).json({Approver: approver});
+        return res.status(OK).json({Notification: notification});
         
       }catch(e){
         return res.status(INTERNAL_SERVER_ERROR).json({message: e.message});
@@ -81,20 +85,20 @@ const ApproverController = {
   delete: async (req, res) => {
     await sequelize.transaction( async (t) => {
       try{
-        const approver = await Approver.findOne({
+        const notification = await Notification.findOne({
           where: {id: req.params.id}
         });
 
-        if(!approver){
-          return res.status(NOT_FOUND).json({message: "Approver Not Found"});          
+        if(!notification){
+          return res.status(NOT_FOUND).json({message: "Notification Not Found"});          
         }
         
-        await approver.destroy({
+        await notification.destroy({
           // deleted_by: req.user.id
           force: false,
         }, {transaction: t});
 
-        return res.status(OK).json({message: 'Approver Destroyed'});
+        return res.status(OK).json({message: 'Notification Destroyed'});
         
       }catch(e){
         return res.status(INTERNAL_SERVER_ERROR).json({message: e.message});        
@@ -103,4 +107,4 @@ const ApproverController = {
   }
 };
 
-module.exports.ApproverController = ApproverController;
+module.exports.NotificationController = NotificationController;

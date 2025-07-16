@@ -1,18 +1,18 @@
 const express = require('express')
 const router = express.Router()
 
-const { FlierController } = require('../../controllers/flier/flier_controller')
+const { FlightRequestController } = require('../../controllers/flight_request/flight_request_controller')
 
 // TODO: Update schema ref
 
 /**
  *  @openapi
- *  /api/v1/flier/create:
+ *  /api/v1/flight_request/create:
  *    post:
  *      tags: 
- *        - Flier
- *      description: Create Flier API.
- *      summary: Create Flier
+ *        - Flight Request
+ *      description: Create Flight Request API.
+ *      summary: Create Flight Request
  *      security: 
  *        - bearerAuth: []
  *      requestBody:
@@ -20,25 +20,25 @@ const { FlierController } = require('../../controllers/flier/flier_controller')
  *          content:
  *              application/json:
  *                  schema:
- *                      $ref: '#/components/schemas/FlierGetInformation'
+ *                      $ref: '#/components/schemas/FlightRequestGetInformation'
  *      responses:
  *        201:
  *          description: CREATED
  *          content:
  *            application/json:
  *              schema:
- *                $ref: '#/components/schemas/FliersGetInformationResponse'
+ *                $ref: '#/components/schemas/FlightRequestsGetInformationResponse'
 */
-router.post('/create', FlierController.create)
+router.post('/create', FlightRequestController.create)
 
 /**
  *  @openapi
- *  /api/v1/flier/all:
+ *  /api/v1/flight_request/all:
  *    get:
  *      tags: 
- *        - Flier
- *      description: GET All Flier API.
- *      summary: Get All Flier
+ *        - Flight Request
+ *      description: GET All Flight Requests API.
+ *      summary: Get All Flight Requests
  *      security: 
  *        - bearerAuth: []
  *      responses:
@@ -47,17 +47,17 @@ router.post('/create', FlierController.create)
  *          content:
  *            application/json:
  *              schema:
- *                $ref: '#/components/schemas/FliersGetInformationResponse'
+ *                $ref: '#/components/schemas/FlightRequestsGetInformationResponse'
 */
-router.get('/all', FlierController.all)
+router.get('/all', FlightRequestController.all)
 /**
  *  @openapi
- *  /api/v1/flier/{id}:
+ *  /api/v1/flight_request/{id}:
  *    get:
  *      tags: 
- *        - Flier
- *      description: GET Specific Flier by Id API.
- *      summary: Get Specific Flier
+ *        - Flight Request
+ *      description: GET Specific Flight Request by Id API.
+ *      summary: Get Specific Flight Request
  *      security: 
  *        - bearerAuth: []
  *      parameters:
@@ -72,19 +72,19 @@ router.get('/all', FlierController.all)
  *          content:
  *            application/json:
  *              schema:
- *                $ref: '#/components/schemas/FlierGetInformationResponse'
+ *                $ref: '#/components/schemas/FlightRequestsGetInformationResponse'
  *      
 */
-router.get('/:id', FlierController.get)
+router.get('/:id', FlightRequestController.get)
 
 /**
  *  @openapi
- *  /api/v1/flier/{id}:
+ *  /api/v1/flight_request/{id}:
  *    put:
  *      tags: 
- *        - Flier
- *      description: Update Specific Flier by Id API.
- *      summary: Update Specific Flier
+ *        - Flight Request
+ *      description: Update Specific Flight Request by Id API.
+ *      summary: Update Specific Flight Request
  *      security: 
  *        - bearerAuth: []
  *      parameters:
@@ -98,26 +98,26 @@ router.get('/:id', FlierController.get)
  *          content:
  *              application/json:
  *                  schema:
- *                      $ref: '#/components/schemas/FlierGetInformation'
+ *                      $ref: '#/components/schemas/FlightRequestGetInformation'
  *      responses:
  *        200:
  *          description: Ok
  *          content:
  *            application/json:
  *              schema:
- *                $ref: '#/components/schemas/FlierGetInformationResponse'
+ *                $ref: '#/components/schemas/FlightRequestGetInformationResponse'
  *      
 */
-router.put('/:id', FlierController.update)
+router.put('/:id', FlightRequestController.update)
 
 /**
  *  @openapi
- *  /api/v1/flier/{id}:
+ *  /api/v1/flight_request/{id}:
  *    delete:
  *      tags: 
- *        - Flier
- *      description: Delete Specific Flier by Id API.
- *      summary: Delete Specific Flier
+ *        - Flight Request
+ *      description: Delete Specific Flight Request by Id API.
+ *      summary: Delete Specific Flight Request
  *      security: 
  *        - bearerAuth: []
  *      parameters:
@@ -132,9 +132,9 @@ router.put('/:id', FlierController.update)
  *          content:
  *            application/json:
  *              schema:
- *                $ref: '#/components/schemas/FlierGetInformationResponse'
+ *                $ref: '#/components/schemas/FlightRequestGetInformationResponse'
  *      
 */
-router.delete('/:id', FlierController.delete)
+router.delete('/:id', ApproverController.delete)
 
-module.exports.FlierRoutes = router
+module.exports.FlightRequestRoutes = router

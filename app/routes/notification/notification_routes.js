@@ -1,18 +1,18 @@
 const express = require('express')
 const router = express.Router()
 
-const { FlierController } = require('../../controllers/flier/flier_controller')
+const { NotificationController } = require('../../controllers/notification/notification_controller')
 
 // TODO: Update schema ref
 
 /**
  *  @openapi
- *  /api/v1/flier/create:
+ *  /api/v1/notification/create:
  *    post:
  *      tags: 
- *        - Flier
- *      description: Create Flier API.
- *      summary: Create Flier
+ *        - Notification
+ *      description: Create Notification API.
+ *      summary: Create Notification
  *      security: 
  *        - bearerAuth: []
  *      requestBody:
@@ -20,25 +20,25 @@ const { FlierController } = require('../../controllers/flier/flier_controller')
  *          content:
  *              application/json:
  *                  schema:
- *                      $ref: '#/components/schemas/FlierGetInformation'
+ *                      $ref: '#/components/schemas/NotificationGetInformation'
  *      responses:
  *        201:
  *          description: CREATED
  *          content:
  *            application/json:
  *              schema:
- *                $ref: '#/components/schemas/FliersGetInformationResponse'
+ *                $ref: '#/components/schemas/NotificationsGetInformationResponse'
 */
-router.post('/create', FlierController.create)
+router.post('/create', NotificationController.create)
 
 /**
  *  @openapi
- *  /api/v1/flier/all:
+ *  /api/v1/notification/all:
  *    get:
  *      tags: 
- *        - Flier
- *      description: GET All Flier API.
- *      summary: Get All Flier
+ *        - Notification
+ *      description: GET All Notifications API.
+ *      summary: Get All Notifications
  *      security: 
  *        - bearerAuth: []
  *      responses:
@@ -47,17 +47,17 @@ router.post('/create', FlierController.create)
  *          content:
  *            application/json:
  *              schema:
- *                $ref: '#/components/schemas/FliersGetInformationResponse'
+ *                $ref: '#/components/schemas/NotificationsGetInformationResponse'
 */
-router.get('/all', FlierController.all)
+router.get('/all', NotificationController.all)
 /**
  *  @openapi
- *  /api/v1/flier/{id}:
+ *  /api/v1/notification/{id}:
  *    get:
  *      tags: 
- *        - Flier
- *      description: GET Specific Flier by Id API.
- *      summary: Get Specific Flier
+ *        - Notification
+ *      description: GET Specific Notification by Id API.
+ *      summary: Get Specific Notification
  *      security: 
  *        - bearerAuth: []
  *      parameters:
@@ -72,19 +72,19 @@ router.get('/all', FlierController.all)
  *          content:
  *            application/json:
  *              schema:
- *                $ref: '#/components/schemas/FlierGetInformationResponse'
+ *                $ref: '#/components/schemas/NotificationGetInformationResponse'
  *      
 */
-router.get('/:id', FlierController.get)
+router.get('/:id', NotificationController.get)
 
 /**
  *  @openapi
- *  /api/v1/flier/{id}:
+ *  /api/v1/notification/{id}:
  *    put:
  *      tags: 
- *        - Flier
- *      description: Update Specific Flier by Id API.
- *      summary: Update Specific Flier
+ *        - Notification
+ *      description: Update Specific Notification by Id API.
+ *      summary: Update Specific Notification
  *      security: 
  *        - bearerAuth: []
  *      parameters:
@@ -98,26 +98,26 @@ router.get('/:id', FlierController.get)
  *          content:
  *              application/json:
  *                  schema:
- *                      $ref: '#/components/schemas/FlierGetInformation'
+ *                      $ref: '#/components/schemas/NotificationGetInformation'
  *      responses:
  *        200:
  *          description: Ok
  *          content:
  *            application/json:
  *              schema:
- *                $ref: '#/components/schemas/FlierGetInformationResponse'
+ *                $ref: '#/components/schemas/NotificationGetInformationResponse'
  *      
 */
-router.put('/:id', FlierController.update)
+router.put('/:id', NotificationController.update)
 
 /**
  *  @openapi
- *  /api/v1/flier/{id}:
+ *  /api/v1/notifiaction/{id}:
  *    delete:
  *      tags: 
- *        - Flier
- *      description: Delete Specific Flier by Id API.
- *      summary: Delete Specific Flier
+ *        - Notification
+ *      description: Delete Specific Notification by Id API.
+ *      summary: Delete Specific Notification
  *      security: 
  *        - bearerAuth: []
  *      parameters:
@@ -132,9 +132,9 @@ router.put('/:id', FlierController.update)
  *          content:
  *            application/json:
  *              schema:
- *                $ref: '#/components/schemas/FlierGetInformationResponse'
+ *                $ref: '#/components/schemas/NotificationGetInformationResponse'
  *      
 */
-router.delete('/:id', FlierController.delete)
+router.delete('/:id', NotificationController.delete)
 
-module.exports.FlierRoutes = router
+module.exports.NotificationRoutes = router

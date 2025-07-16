@@ -44,7 +44,7 @@ const swaggerSpec = swaggerJsdoc({
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
   swaggerOptions: {
-    docExpansions: "none",
+    docExpansion: "none",
     persistAuthorization: true
   }
 }));

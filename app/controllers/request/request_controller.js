@@ -1,19 +1,20 @@
 const { Op } = require("sequelize");
 
-const { Approver, sequelize } = require("../../models/");
+const { Request, sequelize } = require("../../models/");
 
 const { CREATED, INTERNAL_SERVER_ERROR, NOT_FOUND, OK, PRECONDITION_FAILED } = require('../../constants/http/status_codes');
 
 
-const ApproverController = {
+const RequestController = {
   create: async (req, res) => {
     await sequelize.transaction(async (t) => {
       try{
-        const approver = await Approver.create({
-          'approver_name': req.body.approver_name,
+        const request = await Request.create({
+          'form_id': req.body.form_id,
+          'status_id': req.body.status_id,
           // 'created_by': req.user.id,
         }, {transaction: t});
-        return res.status(CREATED).json({Approver: approver});
+        return res.status(CREATED).json({Request: request});
       } catch(error){
         return res.status(INTERNAL_SERVER_ERROR).json({message: error.message})
       }
@@ -22,10 +23,10 @@ const ApproverController = {
   all: async (req, res) => {
     await sequelize.transaction(async (t) => {
       try {
-        const approvers = await Approver.findAll({
-          attributes: ['id', 'approver_name', 'created_by', 'created_at', 'updated_by', 'updated_at', 'deleted_by', 'deleted_at']
+        const requests = await Request.findAll({
+          attributes: ['id', 'form_id', 'status_id', 'created_by', 'created_at', 'updated_by', 'updated_at', 'deleted_by', 'deleted_at']
         });
-        return res.json(approvers);
+        return res.json(requests);
       } catch (error) {
         return res.status(INTERNAL_SERVER_ERROR).json({message: error.message});
       }
@@ -34,44 +35,45 @@ const ApproverController = {
   get: async (req, res) => {
     await sequelize.transaction(async (t) => {
       try {
-        const approver = await Approver.findOne(
+        const request = await Request.findOne(
           {
             where: {
               id: req.params.id,
             },
-            attributes: ['id', 'approver_name', 'created_by', 'created_at', 'updated_by', 'updated_at', 'deleted_by', 'deleted_at']
+            attributes: ['id', 'form_id', 'status_id', 'created_by', 'created_at', 'updated_by', 'updated_at', 'deleted_by', 'deleted_at']
           
           },
         );
 
-        if (!approver) {
+        if (!request) {
           return res.status(NOT_FOUND).json({
             message: `No matching record with ${req.params.id}`,
-          });
+          });          
         }
 
-        return res.status(OK).json(approver);
+        return res.status(OK).json(request);        
       } catch (error) {
-        return res.status(INTERNAL_SERVER_ERROR).json({ message: error.message });
+        return res.status(INTERNAL_SERVER_ERROR).json({ message: error.message });        
       }
     });
   },
   update: async (req, res) => {
     await sequelize.transaction( async (t) => {
       try{
-        const approver = await Approver.findOne({
+        const request = await Request.findOne({
           where: {id: req.params.id}
         });
 
-        if(!approver){
-          return res.status(NOT_FOUND).json({message: "Approver Not Found"});          
+        if(!request){
+          return res.status(NOT_FOUND).json({message: "Request Not Found"});          
         } 
-        await approver.update({
-          approver_name: req.body.approver_name,
+        await request.update({
+          form_id: req.body.form_id,
+          status_id: req.body.status_id,
           // updated_by: req.user.id
         }, {transaction: t});
 
-        return res.status(OK).json({Approver: approver});
+        return res.status(OK).json({Request: request});
         
       }catch(e){
         return res.status(INTERNAL_SERVER_ERROR).json({message: e.message});
@@ -81,20 +83,20 @@ const ApproverController = {
   delete: async (req, res) => {
     await sequelize.transaction( async (t) => {
       try{
-        const approver = await Approver.findOne({
+        const request = await Request.findOne({
           where: {id: req.params.id}
         });
 
-        if(!approver){
-          return res.status(NOT_FOUND).json({message: "Approver Not Found"});          
+        if(!request){
+          return res.status(NOT_FOUND).json({message: "Request Not Found"});          
         }
         
-        await approver.destroy({
+        await request.destroy({
           // deleted_by: req.user.id
           force: false,
         }, {transaction: t});
 
-        return res.status(OK).json({message: 'Approver Destroyed'});
+        return res.status(OK).json({message: 'Request Destroyed'});
         
       }catch(e){
         return res.status(INTERNAL_SERVER_ERROR).json({message: e.message});        
@@ -103,4 +105,4 @@ const ApproverController = {
   }
 };
 
-module.exports.ApproverController = ApproverController;
+module.exports.RequestController = RequestController;

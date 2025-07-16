@@ -5,8 +5,6 @@
  *     PurposeOfTravelGetInformation:
  *       type: object
  *       properties:
- *         id:
- *           type: integer
  *         purpose_name:
  *           type: string
  *     PurposeOfTravelGetInformationResponse:
