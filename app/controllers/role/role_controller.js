@@ -1,11 +1,24 @@
-const { Op } = require("sequelize");
+const { Op, ValidationErrorItemType } = require("sequelize");
 
 const { Role, sequelize } = require("../../models/");
 
 const { CREATED, INTERNAL_SERVER_ERROR, NOT_FOUND, OK, PRECONDITION_FAILED } = require('../../constants/http/status_codes');
+const { message } = require("mailersend/src/modules/messages");
 
 
 const RoleController = {
+  create: async (req, res) => {
+    await sequelize.transaction(async (t) => {
+      try{
+        const role = await Role.create({
+          'role_name': req.body.role_name,
+        }, {transaction: t});
+        res.status(OK).json({Roles: role})
+      } catch(error){
+        res.status(INTERNAL_SERVER_ERROR).json({message: error.message})
+      }
+    })
+  },
   all: async (req, res) => {
     await sequelize.transaction(async (t) => {
       try {
@@ -46,6 +59,50 @@ const RoleController = {
       }
     });
   },
+  update: async (req, res) => {
+    await sequelize.transaction(async(t) => {
+      try {
+        const role = await Role.findOne({
+          where: { id: req.params.id }
+        });
+
+        if (!role) {
+          res.status(NOT_FOUND).json({ message: "Role Not Found" });
+        }
+
+        await role.update({
+          role_name: req.body.role_name,
+        }, {transaction: t});
+
+        return res.status(OK).json({Role: role});
+
+      } catch(error) {
+        res.status(INTERNAL_SERVER_ERROR).json({ message: error.message })
+      }
+    })
+  },
+  delete: async (req, res) => {
+    await sequelize.transaction(async (t) => {
+      try {
+        const role = await Role.findOne({
+          where: {id: req.params.id} 
+        });
+
+        if (!role) {
+          res.status(NOT_FOUND).json({ message: 'Role Not Found' })
+        }
+
+        await role.destroy({
+          force: false,
+        }, {transaction: t});
+
+        return res.status(OK).json({ message: 'Role Destroyed' });
+
+      } catch(error) {
+        res.status(INTERNAL_SERVER_ERROR).json({ message: error.message });
+      }
+    })
+  }
 };
 
 module.exports.RoleController = RoleController;

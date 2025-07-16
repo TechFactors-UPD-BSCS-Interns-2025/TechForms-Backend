@@ -5,8 +5,6 @@
  *     RoleGetInformation:
  *       type: object
  *       properties:
- *         id:
- *           type: integer
  *         role_name:
  *           type: string
  *     RoleGetInformationResponse:
