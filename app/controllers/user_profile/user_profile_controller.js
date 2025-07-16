@@ -1,6 +1,6 @@
 const { Op } = require("sequelize");
 
-const { UserProfile, sequelize } = require("../../models/");
+const { UserProfile, sequelize, Department, Role } = require("../../models/");
 
 const { CREATED, INTERNAL_SERVER_ERROR, NOT_FOUND, OK, PRECONDITION_FAILED } = require('../../constants/http/status_codes');
 
@@ -27,7 +27,31 @@ const UserProfileController = {
     await sequelize.transaction(async (t) => {
       try {
         const user_profiles = await UserProfile.findAll({
-          attributes: ['id', 'first_name', 'middle_name', 'last_name', 'department_id', 'role_id', 'profile_photo', 'created_by', 'created_at', 'updated_by', 'updated_at', 'deleted_by', 'deleted_at']
+          attributes: [
+            'id', 
+            'first_name', 
+            'middle_name', 
+            'last_name', 
+            'department_id', 
+            'role_id', 
+            'profile_photo', 
+          ],
+          include: [
+            {
+              model: Department,
+              attributes: [
+                'id',
+                'department_name'
+              ],
+            },
+            {
+              model: Role,
+              attributes: [
+                'id',
+                'role_name'
+              ]
+            }
+          ]
         });
         return res.json(user_profiles);
       } catch (error) {
