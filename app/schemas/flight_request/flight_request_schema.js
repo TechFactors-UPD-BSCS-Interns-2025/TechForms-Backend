@@ -5,8 +5,6 @@
  *     FlightRequestGetInformation:
  *       type: object
  *       properties:
- *         id:
- *           type: integer
  *         profile_id:
  *           type: integer
  *         flier_id:
