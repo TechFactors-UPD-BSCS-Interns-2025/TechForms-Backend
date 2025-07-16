@@ -17,5 +17,26 @@
  *       type: array
  *       items:
  *         $ref: '#/components/schemas/StatusTypeGetInformationResponse'
- * 
+ *
+ *     StatusTypeCreateInput:
+ *       type: object
+ *       required:
+ *         - status_name
+ *         - created_by
+ *       properties:
+ *         status_name:
+ *           type: string
+ *         created_by:
+ *           type: integer
+ *
+ *     StatusTypeUpdateInput:
+ *       type: object
+ *       required:
+ *         - status_name
+ *         - updated_by
+ *       properties:
+ *         status_name:
+ *           type: string
+ *         updated_by:
+ *           type: integer
  */

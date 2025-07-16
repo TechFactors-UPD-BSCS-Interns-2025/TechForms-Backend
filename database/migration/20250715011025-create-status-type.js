@@ -8,14 +8,13 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
-        
       },
       status_name: {
         type: Sequelize.STRING,
         allowNull: true,
       },
       created_by: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER 
       },
       created_at: {
         allowNull: false,
