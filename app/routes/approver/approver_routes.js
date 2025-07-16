@@ -22,8 +22,8 @@ const { ApproverController } = require('../../controllers/approver/approver_cont
  *                  schema:
  *                      $ref: '#/components/schemas/ApproverGetInformation'
  *      responses:
- *        200:
- *          description: Ok
+ *        201:
+ *          description: CREATED
  *          content:
  *            application/json:
  *              schema:

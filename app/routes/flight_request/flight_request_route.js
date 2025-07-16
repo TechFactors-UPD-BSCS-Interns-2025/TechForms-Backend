@@ -22,8 +22,8 @@ const { FlightRequestController } = require('../../controllers/flight_request/fl
  *                  schema:
  *                      $ref: '#/components/schemas/FlightRequestGetInformation'
  *      responses:
- *        200:
- *          description: Ok
+ *        201:
+ *          description: CREATED
  *          content:
  *            application/json:
  *              schema:

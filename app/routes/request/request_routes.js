@@ -22,8 +22,8 @@ const { RequestController } = require('../../controllers/request/request_control
  *                  schema:
  *                      $ref: '#/components/schemas/RequestGetInformation'
  *      responses:
- *        200:
- *          description: Ok
+ *        201:
+ *          description: CREATED
  *          content:
  *            application/json:
  *              schema:

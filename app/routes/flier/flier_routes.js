@@ -22,8 +22,8 @@ const { FlierController } = require('../../controllers/flier/flier_controller')
  *                  schema:
  *                      $ref: '#/components/schemas/FlierGetInformation'
  *      responses:
- *        200:
- *          description: Ok
+ *        201:
+ *          description: CREATED
  *          content:
  *            application/json:
  *              schema:
