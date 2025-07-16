@@ -20,8 +20,8 @@ const { UserCredentialsController } = require('../../controllers/user_credential
  *                  schema:
  *                      $ref: '#/components/schemas/UserCredentialsGetInformation'
  *      responses:
- *        200:
- *          description: Ok
+ *        201:
+ *          description: CREATED
  *          content:
  *            application/json:
  *              schema:

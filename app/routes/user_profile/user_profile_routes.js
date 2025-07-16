@@ -20,8 +20,8 @@ const { UserProfileController } = require('../../controllers/user_profile/user_p
  *                  schema:
  *                      $ref: '#/components/schemas/UserProfileGetInformation'
  *      responses:
- *        200:
- *          description: Ok
+ *        201:
+ *          description: CREATED
  *          content:
  *            application/json:
  *              schema:

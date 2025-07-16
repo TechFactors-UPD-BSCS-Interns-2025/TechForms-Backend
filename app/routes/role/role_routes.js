@@ -40,8 +40,8 @@ router.post('/create', RoleController.create)
  *      security: 
  *        - bearerAuth: []
  *      responses:
- *        200:
- *          description: Ok
+ *        201:
+ *          description: CREATED
  *          content:
  *            application/json:
  *              schema:
