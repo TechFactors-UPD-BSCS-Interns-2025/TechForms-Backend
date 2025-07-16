@@ -1,9 +1,8 @@
-const { Op, INET } = require("sequelize");
+const { Op } = require("sequelize");
 
 const { UserProfile, sequelize } = require("../../models/");
 
 const { CREATED, INTERNAL_SERVER_ERROR, NOT_FOUND, OK, PRECONDITION_FAILED } = require('../../constants/http/status_codes');
-const { message } = require("mailersend/src/modules/messages");
 
 
 const UserProfileController = {
@@ -18,9 +17,9 @@ const UserProfileController = {
           'role_id': req.body.role_id,
           'profile_photo': req.body.profile_photo,
         }, {transaction: t})
-        res.status(OK).json({ UserProfile: user_profile });
+        return res.status(CREATED).json({ UserProfile: user_profile });
       } catch(error) {
-        res.status(INTERNAL_SERVER_ERROR).json({ message: error.message })
+        return res.status(INTERNAL_SERVER_ERROR).json({ message: error.message })
       }
     })
   },
@@ -30,9 +29,9 @@ const UserProfileController = {
         const user_profiles = await UserProfile.findAll({
           attributes: ['id', 'first_name', 'middle_name', 'last_name', 'department_id', 'role_id', 'profile_photo', 'created_by', 'created_at', 'updated_by', 'updated_at', 'deleted_by', 'deleted_at']
         });
-        res.json(user_profiles);
+        return res.json(user_profiles);
       } catch (error) {
-        res.status(INTERNAL_SERVER_ERROR).json({message: error.message});
+        return res.status(INTERNAL_SERVER_ERROR).json({message: error.message});
       }
     });
   },
@@ -50,17 +49,14 @@ const UserProfileController = {
         );
 
         if (!user_profile) {
-          res.status(NOT_FOUND).json({
+          return res.status(NOT_FOUND).json({
             message: `No matching record with ${req.params.id}`,
           });
-          return;
         }
 
-        res.status(OK).json(user_profile);
-        return;
+        return res.status(OK).json(user_profile);
       } catch (error) {
-        res.status(INTERNAL_SERVER_ERROR).json({ message: error.message });
-        return;
+        return res.status(INTERNAL_SERVER_ERROR).json({ message: error.message });
       }
     });
   },
@@ -72,7 +68,7 @@ const UserProfileController = {
         });
 
         if (!user_profile) {
-          res.status(NOT_FOUND).json({ message: 'User Profile Not Found' })
+          return res.status(NOT_FOUND).json({ message: 'User Profile Not Found' })
         }
 
         await user_profile.update({
@@ -85,7 +81,7 @@ const UserProfileController = {
         }, {transaction: t})
         return res.status(OK).json({UserProfile: user_profile});
       } catch(error) {
-        res.status(INTERNAL_SERVER_ERROR).json({ message: error.message })
+        return res.status(INTERNAL_SERVER_ERROR).json({ message: error.message })
       }
     });
   },
@@ -97,7 +93,7 @@ const UserProfileController = {
         });
 
         if (!user_profile) {
-          res.status(NOT_FOUND).json({ message: 'User Profile Not Found' });
+          return res.status(NOT_FOUND).json({ message: 'User Profile Not Found' });
         }
 
         await user_profile.destroy({
@@ -106,7 +102,7 @@ const UserProfileController = {
 
         return res.status(OK).json({ message: 'User Profile Destroyed' })
       } catch(error) {
-        res.status(INTERNAL_SERVER_ERROR).json({ message: error.message })
+        return res.status(INTERNAL_SERVER_ERROR).json({ message: error.message })
       }
     });
   }

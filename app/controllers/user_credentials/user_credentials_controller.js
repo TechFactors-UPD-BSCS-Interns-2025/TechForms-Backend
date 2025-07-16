@@ -3,8 +3,6 @@ const { Op } = require("sequelize");
 const { UserCredentials, sequelize } = require("../../models/");
 
 const { CREATED, INTERNAL_SERVER_ERROR, NOT_FOUND, OK, PRECONDITION_FAILED } = require('../../constants/http/status_codes');
-const user_credentials = require("../../models/user_credentials");
-const { message } = require("mailersend/src/modules/messages");
 
 
 const UserCredentialsController = {
@@ -18,9 +16,9 @@ const UserCredentialsController = {
           'email': req.body.email,
           'phone': req.body.phone,
         });
-        res.status(OK).json({UserCredentials: user_credentials})
+        return res.status(CREATED).json({UserCredentials: user_credentials})
       } catch(error) {
-        res.status(INTERNAL_SERVER_ERROR).json({ message: error.message })
+        return res.status(INTERNAL_SERVER_ERROR).json({ message: error.message })
       }
     })
   },
@@ -30,9 +28,9 @@ const UserCredentialsController = {
         const user_credentials = await UserCredentials.findAll({
           attributes: ['id', 'profile_id', 'username', 'password', 'email', 'created_by', 'phone', 'created_at', 'updated_by', 'updated_at', 'deleted_by', 'deleted_at']
         });
-        res.json(user_credentials);
+        return res.json(user_credentials);
       } catch (error) {
-        res.status(INTERNAL_SERVER_ERROR).json({message: error.message});
+        return res.status(INTERNAL_SERVER_ERROR).json({message: error.message});
       }
     });
   },
@@ -50,17 +48,14 @@ const UserCredentialsController = {
         );
 
         if (!user_credentials) {
-          res.status(NOT_FOUND).json({
+          return res.status(NOT_FOUND).json({
             message: `No matching record with ${req.params.id}`,
           });
-          return;
         }
 
-        res.status(OK).json(user_credentials);
-        return;
+        return res.status(OK).json(user_credentials);
       } catch (error) {
-        res.status(INTERNAL_SERVER_ERROR).json({ message: error.message });
-        return;
+        return res.status(INTERNAL_SERVER_ERROR).json({ message: error.message });
       }
     });
   },
@@ -72,7 +67,7 @@ const UserCredentialsController = {
         });
 
         if (!user_credentials) {
-          res.status(NOT_FOUND).json({ message: 'User Credentials Not Found' });
+          return res.status(NOT_FOUND).json({ message: 'User Credentials Not Found' });
         }
 
         await user_credentials.update({
@@ -85,7 +80,7 @@ const UserCredentialsController = {
 
         return res.status(OK).json({UserCredentials: user_credentials});
       } catch(error) {
-        res.status(INTERNAL_SERVER_ERROR).json({ message: error.message })
+        return res.status(INTERNAL_SERVER_ERROR).json({ message: error.message })
       }
     })
   },
@@ -97,15 +92,15 @@ const UserCredentialsController = {
         })
 
         if (!user_credentials) {
-          res.status(NOT_FOUND).json({ message: 'User Credentials Not Found' })
+          return res.status(NOT_FOUND).json({ message: 'User Credentials Not Found' })
         }
 
         await user_credentials.destroy({
           force: false
         })
-        res.status(OK).json({ message: 'User Credentials Destroyed' })
+        return res.status(OK).json({ message: 'User Credentials Destroyed' })
       } catch(error) {
-        res.status(INTERNAL_SERVER_ERROR).json({ message: error.message })
+        return res.status(INTERNAL_SERVER_ERROR).json({ message: error.message })
       }
     });
   }
