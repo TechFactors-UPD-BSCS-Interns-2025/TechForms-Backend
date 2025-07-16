@@ -15,9 +15,10 @@ const PurposeOfTravelController = {
           'purpose_name': req.body.purpose_name,
           // 'created_by': req.user.id,
         }, {transaction: t});
-        res.status(OK).json({PurposeOfTravels: purposeOfTravels})
+        return res.status(OK).json({PurposeOfTravels: purposeOfTravels});
       } catch(error){
-        res.status(INTERNAL_SERVER_ERROR).json({message: error.message})
+        res.status(INTERNAL_SERVER_ERROR).json({message: error.message});
+        return;
       }
     })
   },
@@ -28,9 +29,10 @@ const PurposeOfTravelController = {
           attributes: ['id', 'purpose_name', 'created_by', 'created_at', 'updated_by', 'updated_at', 'deleted_by', 'deleted_at']
 
         });
-        res.json(purposes);
+        return res.json(purposes);
       } catch (error) {
         res.status(INTERNAL_SERVER_ERROR).json({message: error.message});
+        return;
       }
     });
   },
@@ -54,8 +56,7 @@ const PurposeOfTravelController = {
           return;
         }
 
-        res.status(OK).json(purpose);
-        return;
+        return res.status(OK).json(purpose);
       } catch (error) {
         res.status(INTERNAL_SERVER_ERROR).json({ message: error.message });
         return;
@@ -80,7 +81,8 @@ const PurposeOfTravelController = {
         return res.status(OK).json({PurposeOfTravel: purpose});
         
       }catch(e){
-        res.status(INTERNAL_SERVER_ERROR).json({message: e.message})
+        res.status(INTERNAL_SERVER_ERROR).json({message: e.message});
+        return;
       }
     })
   },
@@ -103,7 +105,8 @@ const PurposeOfTravelController = {
         return res.status(OK).json({message: 'Purpose Destroyed'});
         
       }catch(e){
-        res.status(INTERNAL_SERVER_ERROR).json({message: e.message})
+        res.status(INTERNAL_SERVER_ERROR).json({message: e.message});
+        return;
       }
     })
   }
