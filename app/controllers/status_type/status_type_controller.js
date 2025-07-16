@@ -98,8 +98,11 @@ const StatusTypeController = {
               return res.status(NOT_FOUND).json({ message: "Not found" });
             }
       
-            await status_type.update(
-              { deleted_at: new Date(), deleted_by },
+            await status_type.destroy(
+              { 
+                // deleted_at: new Date(), deleted_by 
+                force: false
+              },
               { transaction: t }
             );
       
