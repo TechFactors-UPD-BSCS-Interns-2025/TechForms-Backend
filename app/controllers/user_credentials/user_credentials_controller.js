@@ -1,6 +1,6 @@
 const { Op } = require("sequelize");
 
-const { UserCredentials, sequelize } = require("../../models/");
+const { UserCredentials, sequelize, UserProfile } = require("../../models/");
 
 const { CREATED, INTERNAL_SERVER_ERROR, NOT_FOUND, OK, PRECONDITION_FAILED } = require('../../constants/http/status_codes');
 
@@ -26,7 +26,28 @@ const UserCredentialsController = {
     await sequelize.transaction(async (t) => {
       try {
         const user_credentials = await UserCredentials.findAll({
-          attributes: ['id', 'profile_id', 'username', 'password', 'email', 'created_by', 'phone', 'created_at', 'updated_by', 'updated_at', 'deleted_by', 'deleted_at']
+          attributes: [
+            'id', 
+            'profile_id', 
+            'username', 
+            'password', 
+            'email', 
+            'created_by', 
+            'phone', 
+          ],
+          include: [
+            {
+              model: UserProfile,
+              attributes: [
+                'first_name',
+                'middle_name',
+                'last_name',
+                'department_id',
+                'role_id',
+                'profile_photo',
+              ],
+            }
+          ]
         });
         return res.json(user_credentials);
       } catch (error) {
@@ -42,8 +63,28 @@ const UserCredentialsController = {
             where: {
               id: req.params.id,
             },
-            attributes: ['id', 'profile_id', 'username', 'password', 'email', 'created_by', 'phone', 'created_at', 'updated_by', 'updated_at', 'deleted_by', 'deleted_at']
-          
+            attributes: [
+            'id', 
+            'profile_id', 
+            'username', 
+            'password', 
+            'email', 
+            'created_by', 
+            'phone', 
+            ],
+            include: [
+              {
+                model: UserProfile,
+                attributes: [
+                  'first_name',
+                  'middle_name',
+                  'last_name',
+                  'department_id',
+                  'role_id',
+                  'profile_photo',
+                ],
+              }
+            ]
           },
         );
 
