@@ -17,8 +17,7 @@ const PurposeOfTravelController = {
         }, {transaction: t});
         return res.status(OK).json({PurposeOfTravels: purposeOfTravels});
       } catch(error){
-        res.status(INTERNAL_SERVER_ERROR).json({message: error.message});
-        return;
+        return res.status(INTERNAL_SERVER_ERROR).json({message: error.message});         
       }
     })
   },
@@ -31,8 +30,7 @@ const PurposeOfTravelController = {
         });
         return res.json(purposes);
       } catch (error) {
-        res.status(INTERNAL_SERVER_ERROR).json({message: error.message});
-        return;
+        return res.status(INTERNAL_SERVER_ERROR).json({message: error.message});        
       }
     });
   },
@@ -50,16 +48,14 @@ const PurposeOfTravelController = {
         );
 
         if (!purpose) {
-          res.status(NOT_FOUND).json({
+          return res.status(NOT_FOUND).json({
             message: `No matching record with ${req.params.id}`,
           });
-          return;
         }
 
         return res.status(OK).json(purpose);
       } catch (error) {
-        res.status(INTERNAL_SERVER_ERROR).json({ message: error.message });
-        return;
+        return res.status(INTERNAL_SERVER_ERROR).json({ message: error.message });
       }
     });
   },
@@ -81,8 +77,7 @@ const PurposeOfTravelController = {
         return res.status(OK).json({PurposeOfTravel: purpose});
         
       }catch(e){
-        res.status(INTERNAL_SERVER_ERROR).json({message: e.message});
-        return;
+        return res.status(INTERNAL_SERVER_ERROR).json({message: e.message});        
       }
     })
   },
@@ -105,8 +100,7 @@ const PurposeOfTravelController = {
         return res.status(OK).json({message: 'Purpose Destroyed'});
         
       }catch(e){
-        res.status(INTERNAL_SERVER_ERROR).json({message: e.message});
-        return;
+        return res.status(INTERNAL_SERVER_ERROR).json({message: e.message});        
       }
     })
   }

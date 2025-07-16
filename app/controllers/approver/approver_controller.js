@@ -15,8 +15,7 @@ const ApproverController = {
         }, {transaction: t});
         return res.status(OK).json({Approver: approver});
       } catch(error){
-        res.status(INTERNAL_SERVER_ERROR).json({message: error.message})
-        return;
+        return res.status(INTERNAL_SERVER_ERROR).json({message: error.message})
       }
     })
   },
@@ -28,8 +27,7 @@ const ApproverController = {
         });
         return res.json(approvers);
       } catch (error) {
-        res.status(INTERNAL_SERVER_ERROR).json({message: error.message});
-        return;
+        return res.status(INTERNAL_SERVER_ERROR).json({message: error.message});
       }
     });
   },
@@ -47,16 +45,14 @@ const ApproverController = {
         );
 
         if (!approver) {
-          res.status(NOT_FOUND).json({
+          return res.status(NOT_FOUND).json({
             message: `No matching record with ${req.params.id}`,
           });
-          return;
         }
 
         return res.status(OK).json(approver);
       } catch (error) {
-        res.status(INTERNAL_SERVER_ERROR).json({ message: error.message });
-        return;
+        return res.status(INTERNAL_SERVER_ERROR).json({ message: error.message });
       }
     });
   },
@@ -68,8 +64,7 @@ const ApproverController = {
         });
 
         if(!approver){
-          res.status(NOT_FOUND).json({message: "Approver Not Found"});
-          return;
+          return res.status(NOT_FOUND).json({message: "Approver Not Found"});          
         } 
         await approver.update({
           approver_name: req.body.approver_name,
@@ -79,8 +74,7 @@ const ApproverController = {
         return res.status(OK).json({Approver: approver});
         
       }catch(e){
-        res.status(INTERNAL_SERVER_ERROR).json({message: e.message});
-        return;
+        return res.status(INTERNAL_SERVER_ERROR).json({message: e.message});
       }
     })
   },
@@ -92,8 +86,7 @@ const ApproverController = {
         });
 
         if(!approver){
-          res.status(NOT_FOUND).json({message: "Approver Not Found"});
-          return;
+          return res.status(NOT_FOUND).json({message: "Approver Not Found"});          
         }
         
         await approver.destroy({
@@ -104,8 +97,7 @@ const ApproverController = {
         return res.status(OK).json({message: 'Approver Destroyed'});
         
       }catch(e){
-        res.status(INTERNAL_SERVER_ERROR).json({message: e.message});
-        return;
+        return res.status(INTERNAL_SERVER_ERROR).json({message: e.message});        
       }
     })
   }
