@@ -1,11 +1,29 @@
-const { Op } = require("sequelize");
+const { Op, INET } = require("sequelize");
 
 const { UserProfile, sequelize } = require("../../models/");
 
 const { CREATED, INTERNAL_SERVER_ERROR, NOT_FOUND, OK, PRECONDITION_FAILED } = require('../../constants/http/status_codes');
+const { message } = require("mailersend/src/modules/messages");
 
 
 const UserProfileController = {
+  create: async (req, res) => {
+    await sequelize.transaction(async(t) => {
+      try {
+        const user_profile = await UserProfile.create({
+          'first_name': req.body.first_name,
+          'middle_name': req.body.middle_name,
+          'last_name': req.body.last_name,
+          'department_id': req.body.department_id,
+          'role_id': req.body.role_id,
+          'profile_photo': req.body.profile_photo,
+        }, {transaction: t})
+        res.status(OK).json({ UserProfile: user_profile });
+      } catch(error) {
+        res.status(INTERNAL_SERVER_ERROR).json({ message: error.message })
+      }
+    })
+  },
   all: async (req, res) => {
     await sequelize.transaction(async (t) => {
       try {
@@ -46,6 +64,52 @@ const UserProfileController = {
       }
     });
   },
+  update: async (req, res) => {
+    await sequelize.transaction(async(t) => {
+      try {
+        const user_profile = await UserProfile.findOne({
+          where: { id: req.params.id }
+        });
+
+        if (!user_profile) {
+          res.status(NOT_FOUND).json({ message: 'User Profile Not Found' })
+        }
+
+        await user_profile.update({
+          first_name: req.body.first_name,
+          middle_name: req.body.middle_name,
+          last_name: req.body.last_name,
+          department_id: req.body.department_id,
+          role_id: req.body.role_id,
+          profile_photo: req.body.profile_photo,
+        }, {transaction: t})
+        return res.status(OK).json({UserProfile: user_profile});
+      } catch(error) {
+        res.status(INTERNAL_SERVER_ERROR).json({ message: error.message })
+      }
+    });
+  },
+  delete: async (req, res) => {
+    await sequelize.transaction(async(t) => {
+      try {
+        const user_profile = await UserProfile.findOne({
+          where: { id: req.params.id }
+        });
+
+        if (!user_profile) {
+          res.status(NOT_FOUND).json({ message: 'User Profile Not Found' });
+        }
+
+        await user_profile.destroy({
+          force: false
+        }, {transaction: t});
+
+        return res.status(OK).json({ message: 'User Profile Destroyed' })
+      } catch(error) {
+        res.status(INTERNAL_SERVER_ERROR).json({ message: error.message })
+      }
+    });
+  }
 };
 
 module.exports.UserProfileController = UserProfileController;

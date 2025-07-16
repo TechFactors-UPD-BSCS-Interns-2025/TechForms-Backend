@@ -5,8 +5,6 @@
  *     DepartmentGetInformation:
  *       type: object
  *       properties:
- *         id:
- *           type: integer
  *         department_name:
  *           type: string
  *     DepartmentGetInformationResponse:
