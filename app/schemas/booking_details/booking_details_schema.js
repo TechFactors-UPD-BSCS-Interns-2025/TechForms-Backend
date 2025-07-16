@@ -5,8 +5,6 @@
  *     BookingDetailsGetInformation:
  *       type: object
  *       properties:
- *         id:
- *           type: integer
  *         departure_ref_no:
  *           type: string
  *         departure_cost:
