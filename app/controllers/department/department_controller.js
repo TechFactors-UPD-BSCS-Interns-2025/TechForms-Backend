@@ -3,8 +3,6 @@ const { Op } = require("sequelize");
 const { Department, sequelize } = require("../../models/");
 
 const { CREATED, INTERNAL_SERVER_ERROR, NOT_FOUND, OK, PRECONDITION_FAILED } = require('../../constants/http/status_codes');
-const { message } = require("mailersend/src/modules/messages");
-const { NOT } = require("sequelize/lib/deferrable");
 
 
 const DepartmentController = {
@@ -15,9 +13,9 @@ const DepartmentController = {
           'department_name': req.body.department_name,
         }, {transaction: t});
 
-        res.status(OK).json({Departments: department});
+        return res.status(CREATED).json({Departments: department});
       } catch(error) {
-        res.status(INTERNAL_SERVER_ERROR).json({ message: error.message })
+        return res.status(INTERNAL_SERVER_ERROR).json({ message: error.message })
       }
     })
   },
@@ -27,9 +25,9 @@ const DepartmentController = {
         const departments = await Department.findAll({
           attributes: ['id', 'department_name', 'created_by', 'created_at', 'updated_by', 'updated_at', 'deleted_by', 'deleted_at']
         });
-        res.json(departments);
+        return res.json(departments);
       } catch (error) {
-        res.status(INTERNAL_SERVER_ERROR).json({message: error.message});
+        return res.status(INTERNAL_SERVER_ERROR).json({message: error.message});
       }
     });
   },
@@ -47,17 +45,14 @@ const DepartmentController = {
         );
 
         if (!department) {
-          res.status(NOT_FOUND).json({
+          return res.status(NOT_FOUND).json({
             message: `No matching record with ${req.params.id}`,
           });
-          return;
         }
 
-        res.status(OK).json(department);
-        return;
+        return res.status(OK).json(department);
       } catch (error) {
-        res.status(INTERNAL_SERVER_ERROR).json({ message: error.message });
-        return;
+        return res.status(INTERNAL_SERVER_ERROR).json({ message: error.message });
       }
     });
   },
@@ -69,7 +64,7 @@ const DepartmentController = {
         });
 
         if (!department) {
-          res.status(NOT_FOUND).json({ message: "Department Not Found" })
+          return res.status(NOT_FOUND).json({ message: "Department Not Found" })
         }
 
         await department.update({
@@ -79,7 +74,7 @@ const DepartmentController = {
         return res.status(OK).json({Department: department});
 
       } catch(error) {
-        res.status(INTERNAL_SERVER_ERROR).json({ message: error.message });
+        return res.status(INTERNAL_SERVER_ERROR).json({ message: error.message });
       }
     });
   },
@@ -91,7 +86,7 @@ const DepartmentController = {
         })
 
         if (!department) {
-          res.status(NOT_FOUND).json({ message: 'Department Not Found' })
+          return res.status(NOT_FOUND).json({ message: 'Department Not Found' })
         }
 
         await department.destroy({
@@ -100,7 +95,7 @@ const DepartmentController = {
 
         return res.status(OK).json({ message: 'Department Destroyed' })
       } catch(error) {
-        res.status(INTERNAL_SERVER_ERROR).json({ message: error.message })
+        return res.status(INTERNAL_SERVER_ERROR).json({ message: error.message })
       }
     });
   }
