@@ -5,8 +5,6 @@
  *     FlierGetInformation:
  *       type: object
  *       properties:
- *         id:
- *           type: integer
  *         first_name:
  *           type: string
  *         middle_name:

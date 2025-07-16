@@ -13,9 +13,9 @@ const ApproverController = {
           'approver_name': req.body.approver_name,
           // 'created_by': req.user.id,
         }, {transaction: t});
-        res.status(OK).json({Approver: approver})
+        return res.status(CREATED).json({Approver: approver});
       } catch(error){
-        res.status(INTERNAL_SERVER_ERROR).json({message: error.message})
+        return res.status(INTERNAL_SERVER_ERROR).json({message: error.message})
       }
     })
   },
@@ -25,9 +25,9 @@ const ApproverController = {
         const approvers = await Approver.findAll({
           attributes: ['id', 'approver_name', 'created_by', 'created_at', 'updated_by', 'updated_at', 'deleted_by', 'deleted_at']
         });
-        res.json(approvers);
+        return res.json(approvers);
       } catch (error) {
-        res.status(INTERNAL_SERVER_ERROR).json({message: error.message});
+        return res.status(INTERNAL_SERVER_ERROR).json({message: error.message});
       }
     });
   },
@@ -45,17 +45,14 @@ const ApproverController = {
         );
 
         if (!approver) {
-          res.status(NOT_FOUND).json({
+          return res.status(NOT_FOUND).json({
             message: `No matching record with ${req.params.id}`,
           });
-          return;
         }
 
-        res.status(OK).json(approver);
-        return;
+        return res.status(OK).json(approver);
       } catch (error) {
-        res.status(INTERNAL_SERVER_ERROR).json({ message: error.message });
-        return;
+        return res.status(INTERNAL_SERVER_ERROR).json({ message: error.message });
       }
     });
   },
@@ -67,7 +64,7 @@ const ApproverController = {
         });
 
         if(!approver){
-          res.status(NOT_FOUND).json({message: "Approver Not Found"});
+          return res.status(NOT_FOUND).json({message: "Approver Not Found"});          
         } 
         await approver.update({
           approver_name: req.body.approver_name,
@@ -77,7 +74,7 @@ const ApproverController = {
         return res.status(OK).json({Approver: approver});
         
       }catch(e){
-        res.status(INTERNAL_SERVER_ERROR).json({message: e.message})
+        return res.status(INTERNAL_SERVER_ERROR).json({message: e.message});
       }
     })
   },
@@ -89,7 +86,7 @@ const ApproverController = {
         });
 
         if(!approver){
-          res.status(NOT_FOUND).json({message: "Approver Not Found"});
+          return res.status(NOT_FOUND).json({message: "Approver Not Found"});          
         }
         
         await approver.destroy({
@@ -100,7 +97,7 @@ const ApproverController = {
         return res.status(OK).json({message: 'Approver Destroyed'});
         
       }catch(e){
-        res.status(INTERNAL_SERVER_ERROR).json({message: e.message})
+        return res.status(INTERNAL_SERVER_ERROR).json({message: e.message});        
       }
     })
   }

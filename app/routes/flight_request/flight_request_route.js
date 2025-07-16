@@ -7,6 +7,32 @@ const { FlightRequestController } = require('../../controllers/flight_request/fl
 
 /**
  *  @openapi
+ *  /api/v1/flight_request/create:
+ *    post:
+ *      tags: 
+ *        - Flight Request
+ *      description: Create Flight Request API.
+ *      summary: Create Flight Request
+ *      security: 
+ *        - bearerAuth: []
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      $ref: '#/components/schemas/FlightRequestGetInformation'
+ *      responses:
+ *        201:
+ *          description: CREATED
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/FlightRequestsGetInformationResponse'
+*/
+router.post('/create', FlightRequestController.create)
+
+/**
+ *  @openapi
  *  /api/v1/flight_request/all:
  *    get:
  *      tags: 
@@ -46,9 +72,69 @@ router.get('/all', FlightRequestController.all)
  *          content:
  *            application/json:
  *              schema:
- *                $ref: '#/components/schemas/FlightRequestGetInformationResponse'
+ *                $ref: '#/components/schemas/FlightRequestsGetInformationResponse'
  *      
 */
 router.get('/:id', FlightRequestController.get)
+
+/**
+ *  @openapi
+ *  /api/v1/flight_request/{id}:
+ *    put:
+ *      tags: 
+ *        - Flight Request
+ *      description: Update Specific Flight Request by Id API.
+ *      summary: Update Specific Flight Request
+ *      security: 
+ *        - bearerAuth: []
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          schema:
+ *           type: integer
+ *          required: true
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      $ref: '#/components/schemas/FlightRequestGetInformation'
+ *      responses:
+ *        200:
+ *          description: Ok
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/FlightRequestGetInformationResponse'
+ *      
+*/
+router.put('/:id', FlightRequestController.update)
+
+/**
+ *  @openapi
+ *  /api/v1/flight_request/{id}:
+ *    delete:
+ *      tags: 
+ *        - Flight Request
+ *      description: Delete Specific Flight Request by Id API.
+ *      summary: Delete Specific Flight Request
+ *      security: 
+ *        - bearerAuth: []
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          schema:
+ *           type: integer
+ *          required: true
+ *      responses:
+ *        200:
+ *          description: Ok
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/FlightRequestGetInformationResponse'
+ *      
+*/
+router.delete('/:id', ApproverController.delete)
 
 module.exports.FlightRequestRoutes = router

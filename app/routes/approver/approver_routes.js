@@ -22,12 +22,12 @@ const { ApproverController } = require('../../controllers/approver/approver_cont
  *                  schema:
  *                      $ref: '#/components/schemas/ApproverGetInformation'
  *      responses:
- *        200:
- *          description: Ok
+ *        201:
+ *          description: CREATED
  *          content:
  *            application/json:
  *              schema:
- *                $ref: '#/components/schemas/ApproverGetInformationResponse'
+ *                $ref: '#/components/schemas/ApproversGetInformationResponse'
 */
 router.post('/create', ApproverController.create)
 
@@ -73,7 +73,7 @@ router.get('/all', ApproverController.all)
  *          content:
  *            application/json:
  *              schema:
- *                $ref: '#/components/schemas/ApproverGetInformationResponse'
+ *                $ref: '#/components/schemas/ApproversGetInformationResponse'
  *      
 */
 router.get('/:id', ApproverController.get)

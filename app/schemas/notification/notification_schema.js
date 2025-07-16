@@ -5,8 +5,6 @@
  *     NotificationGetInformation:
  *       type: object
  *       properties:
- *         id:
- *           type: integer
  *         user_id:
  *           type: integer
  *         message:
