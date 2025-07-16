@@ -2,23 +2,23 @@
  * @openapi
  * components:
  *   schemas:
- *     FormTypeGetInformation:
+ *     StatusTypeGetInformation:
  *       type: object
  *       properties:
  *         id:
  *           type: integer
- *         form_name:
+ *         status_name:
  *           type: string
- *     FormTypeGetInformationResponse:
+ *     StatusTypeGetInformationResponse:
  *       allOf:
- *         - $ref: '#/components/schemas/FormTypeGetInformation'
+ *         - $ref: '#/components/schemas/StatusTypeGetInformation'
  *         - $ref: '#/components/schemas/TimeStamps'
- *     FormTypesGetInformationResponse:
+ *     StatusTypesGetInformationResponse:
  *       type: array
  *       items:
- *         $ref: '#/components/schemas/FormTypeGetInformationResponse'
- * 
- *     FormTypeCreateInput:
+ *         $ref: '#/components/schemas/StatusTypeGetInformationResponse'
+ *
+ *     StatusTypeCreateInput:
  *       type: object
  *       required:
  *         - status_name
@@ -29,7 +29,7 @@
  *         created_by:
  *           type: integer
  *
- *     FormTypeUpdateInput:
+ *     StatusTypeUpdateInput:
  *       type: object
  *       required:
  *         - status_name
@@ -40,4 +40,3 @@
  *         updated_by:
  *           type: integer
  */
-
