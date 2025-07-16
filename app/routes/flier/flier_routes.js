@@ -7,6 +7,32 @@ const { FlierController } = require('../../controllers/flier/flier_controller')
 
 /**
  *  @openapi
+ *  /api/v1/flier/create:
+ *    post:
+ *      tags: 
+ *        - Flier
+ *      description: Create Flier API.
+ *      summary: Create Flier
+ *      security: 
+ *        - bearerAuth: []
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      $ref: '#/components/schemas/FlierGetInformation'
+ *      responses:
+ *        200:
+ *          description: Ok
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/FlierGetInformationResponse'
+*/
+router.post('/create', FlierController.create)
+
+/**
+ *  @openapi
  *  /api/v1/flier/all:
  *    get:
  *      tags: 
@@ -50,5 +76,65 @@ router.get('/all', FlierController.all)
  *      
 */
 router.get('/:id', FlierController.get)
+
+/**
+ *  @openapi
+ *  /api/v1/flier/{id}:
+ *    put:
+ *      tags: 
+ *        - Flier
+ *      description: Update Specific Flier by Id API.
+ *      summary: Update Specific Flier
+ *      security: 
+ *        - bearerAuth: []
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          schema:
+ *           type: integer
+ *          required: true
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      $ref: '#/components/schemas/FlierGetInformation'
+ *      responses:
+ *        200:
+ *          description: Ok
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/FlierGetInformationResponse'
+ *      
+*/
+router.put('/:id', FlierController.update)
+
+/**
+ *  @openapi
+ *  /api/v1/flier/{id}:
+ *    delete:
+ *      tags: 
+ *        - Flier
+ *      description: Delete Specific Flier by Id API.
+ *      summary: Delete Specific Flier
+ *      security: 
+ *        - bearerAuth: []
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          schema:
+ *           type: integer
+ *          required: true
+ *      responses:
+ *        200:
+ *          description: Ok
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/FlierGetInformationResponse'
+ *      
+*/
+router.delete('/:id', FlierController.delete)
 
 module.exports.FlierRoutes = router
