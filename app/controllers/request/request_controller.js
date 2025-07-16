@@ -14,7 +14,7 @@ const RequestController = {
           'status_id': req.body.status_id,
           // 'created_by': req.user.id,
         }, {transaction: t});
-        return res.status(OK).json({Request: request});
+        return res.status(CREATED).json({Request: request});
       } catch(error){
         return res.status(INTERNAL_SERVER_ERROR).json({message: error.message})
       }

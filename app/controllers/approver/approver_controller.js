@@ -13,7 +13,7 @@ const ApproverController = {
           'approver_name': req.body.approver_name,
           // 'created_by': req.user.id,
         }, {transaction: t});
-        return res.status(OK).json({Approver: approver});
+        return res.status(CREATED).json({Approver: approver});
       } catch(error){
         return res.status(INTERNAL_SERVER_ERROR).json({message: error.message})
       }

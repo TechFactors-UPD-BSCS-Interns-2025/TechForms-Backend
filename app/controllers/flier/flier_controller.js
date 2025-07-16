@@ -18,7 +18,7 @@ const FlierController = {
           'title': req.body.title,
           // 'created_by': req.user.id,
         }, {transaction: t});
-        return res.status(OK).json({Flier: flier});
+        return res.status(CREATED).json({Flier: flier});
       } catch(error){
         return res.status(INTERNAL_SERVER_ERROR).json({message: error.message});
       }

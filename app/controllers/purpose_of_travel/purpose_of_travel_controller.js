@@ -15,7 +15,7 @@ const PurposeOfTravelController = {
           'purpose_name': req.body.purpose_name,
           // 'created_by': req.user.id,
         }, {transaction: t});
-        return res.status(OK).json({PurposeOfTravels: purposeOfTravels});
+        return res.status(CREATED).json({PurposeOfTravels: purposeOfTravels});
       } catch(error){
         return res.status(INTERNAL_SERVER_ERROR).json({message: error.message});         
       }

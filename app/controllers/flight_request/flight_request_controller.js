@@ -27,7 +27,7 @@ const FlightRequestController = {
           'booking_id': req.body.booking_id,
           // 'created_by': req.user.id,
         }, {transaction: t});
-        return res.status(OK).json({FlightRequest: flightRequest});
+        return res.status(CREATED).json({FlightRequest: flightRequest});
       } catch(error){
         return res.status(INTERNAL_SERVER_ERROR).json({message: error.message})
       }
