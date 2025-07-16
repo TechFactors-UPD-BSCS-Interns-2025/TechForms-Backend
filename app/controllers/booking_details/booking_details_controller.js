@@ -3,7 +3,6 @@ const { Op } = require("sequelize");
 const { BookingDetails, sequelize } = require("../../models");
 
 const { CREATED, INTERNAL_SERVER_ERROR, NOT_FOUND, OK, PRECONDITION_FAILED } = require('../../constants/http/status_codes');
-const { message } = require("mailersend/src/modules/messages");
 
 
 const BookingDetailsController = {
@@ -18,9 +17,9 @@ const BookingDetailsController = {
           'return_cost': req.body.return_cost,
           'return_ticket_path': req.body.return_ticket_path,
         }, {transaction: t});
-        res.status(OK).json({BookingDetails: booking_details})
+        return res.status(CREATED).json({BookingDetails: booking_details})
       } catch (error) {
-        res.status(INTERNAL_SERVER_ERROR).json({ message: error.message })
+        return res.status(INTERNAL_SERVER_ERROR).json({ message: error.message })
       }
     });
   },
@@ -30,9 +29,9 @@ const BookingDetailsController = {
         const booking_details = await BookingDetails.findAll({
           attributes: ['id', 'departure_ref_no', 'departure_cost', 'departure_ticket_path', 'return_ref_no', 'return_cost', 'return_ticket_path', 'created_by', 'created_at', 'updated_by', 'updated_at', 'deleted_by', 'deleted_at']
         });
-        res.json(booking_details);
+        return res.json(booking_details);
       } catch (error) {
-        res.status(INTERNAL_SERVER_ERROR).json({message: error.message});
+        return res.status(INTERNAL_SERVER_ERROR).json({message: error.message});
       }
     });
   },
@@ -49,17 +48,14 @@ const BookingDetailsController = {
         );
 
         if (!booking_details) {
-          res.status(NOT_FOUND).json({
+          return res.status(NOT_FOUND).json({
             message: `No matching record with ${req.params.id}`,
           });
-          return;
         }
 
-        res.status(OK).json(booking_details);
-        return;
+        return res.status(OK).json(booking_details);
       } catch (error) {
-        res.status(INTERNAL_SERVER_ERROR).json({ message: error.message });
-        return;
+        return res.status(INTERNAL_SERVER_ERROR).json({ message: error.message });
       }
     });
   },
@@ -71,7 +67,7 @@ const BookingDetailsController = {
         });
 
         if (!booking_details) {
-          res.status(NOT_FOUND).json({ message: 'Booking Details Not Found' });
+          return res.status(NOT_FOUND).json({ message: 'Booking Details Not Found' });
         }
 
         await booking_details.update({
@@ -85,7 +81,7 @@ const BookingDetailsController = {
 
         return res.status(OK).json({ BookingDetails: booking_details });
       } catch(error) {
-        res.status(INTERNAL_SERVER_ERROR).json({ message: error.message })
+        return res.status(INTERNAL_SERVER_ERROR).json({ message: error.message })
       }
     })
   },
@@ -97,7 +93,7 @@ const BookingDetailsController = {
         });
 
         if (!booking_details) {
-          res.status(NOT_FOUND).json({ message: 'Booking Details Not Found' })
+          return res.status(NOT_FOUND).json({ message: 'Booking Details Not Found' })
         }
 
         await booking_details.destroy({
@@ -106,7 +102,7 @@ const BookingDetailsController = {
 
         return res.status(OK).json({ message: 'Booking Details Destroyed' });
       } catch(error) {
-        res.status(INTERNAL_SERVER_ERROR).json({ message: error.message })
+        return res.status(INTERNAL_SERVER_ERROR).json({ message: error.message })
       }
     });
   }

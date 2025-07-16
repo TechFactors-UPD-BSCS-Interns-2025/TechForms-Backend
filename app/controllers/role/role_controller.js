@@ -1,9 +1,8 @@
-const { Op, ValidationErrorItemType } = require("sequelize");
+const { Op } = require("sequelize");
 
 const { Role, sequelize } = require("../../models/");
 
 const { CREATED, INTERNAL_SERVER_ERROR, NOT_FOUND, OK, PRECONDITION_FAILED } = require('../../constants/http/status_codes');
-const { message } = require("mailersend/src/modules/messages");
 
 
 const RoleController = {
@@ -13,9 +12,9 @@ const RoleController = {
         const role = await Role.create({
           'role_name': req.body.role_name,
         }, {transaction: t});
-        res.status(OK).json({Roles: role})
+        return res.status(CREATED).json({Roles: role})
       } catch(error){
-        res.status(INTERNAL_SERVER_ERROR).json({message: error.message})
+        return res.status(INTERNAL_SERVER_ERROR).json({message: error.message})
       }
     })
   },
@@ -25,9 +24,9 @@ const RoleController = {
         const roles = await Role.findAll({
           attributes: ['id', 'role_name', 'created_by', 'created_at', 'updated_by', 'updated_at', 'deleted_by', 'deleted_at']
         });
-        res.json(roles);
+        return res.json(roles);
       } catch (error) {
-        res.status(INTERNAL_SERVER_ERROR).json({message: error.message});
+        return res.status(INTERNAL_SERVER_ERROR).json({message: error.message});
       }
     });
   },
@@ -45,17 +44,14 @@ const RoleController = {
         );
 
         if (!role) {
-          res.status(NOT_FOUND).json({
+          return res.status(NOT_FOUND).json({
             message: `No matching record with ${req.params.id}`,
           });
-          return;
         }
 
-        res.status(OK).json(role);
-        return;
+        return res.status(OK).json(role);
       } catch (error) {
-        res.status(INTERNAL_SERVER_ERROR).json({ message: error.message });
-        return;
+        return res.status(INTERNAL_SERVER_ERROR).json({ message: error.message });
       }
     });
   },
@@ -67,7 +63,7 @@ const RoleController = {
         });
 
         if (!role) {
-          res.status(NOT_FOUND).json({ message: "Role Not Found" });
+          return res.status(NOT_FOUND).json({ message: "Role Not Found" });
         }
 
         await role.update({
@@ -77,7 +73,7 @@ const RoleController = {
         return res.status(OK).json({Role: role});
 
       } catch(error) {
-        res.status(INTERNAL_SERVER_ERROR).json({ message: error.message })
+        return res.status(INTERNAL_SERVER_ERROR).json({ message: error.message })
       }
     })
   },
@@ -89,7 +85,7 @@ const RoleController = {
         });
 
         if (!role) {
-          res.status(NOT_FOUND).json({ message: 'Role Not Found' })
+          return res.status(NOT_FOUND).json({ message: 'Role Not Found' })
         }
 
         await role.destroy({
@@ -99,7 +95,7 @@ const RoleController = {
         return res.status(OK).json({ message: 'Role Destroyed' });
 
       } catch(error) {
-        res.status(INTERNAL_SERVER_ERROR).json({ message: error.message });
+        return res.status(INTERNAL_SERVER_ERROR).json({ message: error.message });
       }
     })
   }
