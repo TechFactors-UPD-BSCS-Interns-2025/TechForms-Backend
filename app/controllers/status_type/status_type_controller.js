@@ -18,8 +18,8 @@ const StatusTypeController = {
         
             return res.status(CREATED).json(newStatusType);
             } catch (error) {
-            res.status(INTERNAL_SERVER_ERROR).json({ message: error.message });
-            return;
+              res.status(INTERNAL_SERVER_ERROR).json({ message: error.message });
+              return;
             }
         });
     },
