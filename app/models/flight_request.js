@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
     return_city: DataTypes.STRING,
     approver_id: DataTypes.INTEGER,
     remarks: DataTypes.TEXT,
-    booking_id: DataTypes.STRING,
+    booking_id: DataTypes.INTEGER,
     created_by: DataTypes.INTEGER,
     updated_by: DataTypes.INTEGER,
     deleted_by: DataTypes.INTEGER,

@@ -40,7 +40,7 @@
  *         remarks:
  *           type: string
  *         booking_id:
- *           type: string
+ *           type: integer
  * 
  *     FlightRequestGetInformationResponse:
  *       allOf:
