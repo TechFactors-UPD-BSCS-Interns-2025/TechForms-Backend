@@ -111,7 +111,7 @@ router.put('/:id', FormTypeController.update);
 
 /**
  *  @openapi
- *  /api/v1/status_type/{id}:
+ *  /api/v1/form_type/{id}:
  *    delete:
  *      tags:
  *        - FormType

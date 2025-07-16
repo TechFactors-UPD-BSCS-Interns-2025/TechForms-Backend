@@ -18,4 +18,26 @@
  *       items:
  *         $ref: '#/components/schemas/FormTypeGetInformationResponse'
  * 
+ *     FormTypeCreateInput:
+ *       type: object
+ *       required:
+ *         - status_name
+ *         - created_by
+ *       properties:
+ *         status_name:
+ *           type: string
+ *         created_by:
+ *           type: integer
+ *
+ *     FormTypeUpdateInput:
+ *       type: object
+ *       required:
+ *         - status_name
+ *         - updated_by
+ *       properties:
+ *         status_name:
+ *           type: string
+ *         updated_by:
+ *           type: integer
  */
+

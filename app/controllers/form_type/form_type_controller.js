@@ -98,8 +98,12 @@ const FormTypeController = {
           return res.status(NOT_FOUND).json({message: "Not found"})
         }
 
-        await form_type.update(
-          {deleted_at: new Date(), deleted_by},
+        await form_type.destroy(
+          {
+            // deleted_at: new Date(), deleted_by
+            force: false
+
+          },
           {transaction: t}
         )
 
