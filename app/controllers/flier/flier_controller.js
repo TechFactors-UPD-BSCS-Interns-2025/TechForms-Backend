@@ -18,10 +18,9 @@ const FlierController = {
           'title': req.body.title,
           // 'created_by': req.user.id,
         }, {transaction: t});
-        return res.status(OK).json({Flier: flier});
+        return res.status(CREATED).json({Flier: flier});
       } catch(error){
-        res.status(INTERNAL_SERVER_ERROR).json({message: error.message});
-        return;
+        return res.status(INTERNAL_SERVER_ERROR).json({message: error.message});
       }
     })
   },
@@ -33,8 +32,7 @@ const FlierController = {
         });
         return res.json(fliers);
       } catch (error) {
-        res.status(INTERNAL_SERVER_ERROR).json({message: error.message});
-        return;
+        return res.status(INTERNAL_SERVER_ERROR).json({message: error.message});
       }
     });
   },
@@ -52,16 +50,14 @@ const FlierController = {
         );
 
         if (!flier) {
-          res.status(NOT_FOUND).json({
+          return res.status(NOT_FOUND).json({
             message: `No matching record with ${req.params.id}`,
           });
-          return;
         }
 
         return res.status(OK).json(flier);
       } catch (error) {
-        res.status(INTERNAL_SERVER_ERROR).json({ message: error.message });
-        return;
+        return res.status(INTERNAL_SERVER_ERROR).json({ message: error.message });
       }
     });
   },
@@ -73,8 +69,7 @@ const FlierController = {
         });
 
         if(!flier){
-          res.status(NOT_FOUND).json({message: "Flier Not Found"});
-          return;
+          return res.status(NOT_FOUND).json({message: "Flier Not Found"});
         } 
         await flier.update({
           first_name: req.body.first_name,
@@ -89,8 +84,7 @@ const FlierController = {
         return res.status(OK).json({Flier: flier});
         
       }catch(e){
-        res.status(INTERNAL_SERVER_ERROR).json({message: e.message});
-        return;
+        return res.status(INTERNAL_SERVER_ERROR).json({message: e.message});
       }
     })
   },
@@ -102,8 +96,7 @@ const FlierController = {
         });
 
         if(!flier){
-          res.status(NOT_FOUND).json({message: "Flier Not Found"});
-          return;
+          return res.status(NOT_FOUND).json({message: "Flier Not Found"});
         }
         
         await flier.destroy({
@@ -114,8 +107,7 @@ const FlierController = {
         return res.status(OK).json({message: 'Flier Destroyed'});
         
       }catch(e){
-        res.status(INTERNAL_SERVER_ERROR).json({message: e.message});
-        return;
+        return res.status(INTERNAL_SERVER_ERROR).json({message: e.message});
       }
     })
   }

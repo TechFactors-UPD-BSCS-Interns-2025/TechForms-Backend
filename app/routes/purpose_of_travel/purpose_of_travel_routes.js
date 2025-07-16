@@ -22,8 +22,8 @@ const { PurposeOfTravelController } = require('../../controllers/purpose_of_trav
  *                  schema:
  *                      $ref: '#/components/schemas/PurposeOfTravelGetInformation'
  *      responses:
- *        200:
- *          description: Ok
+ *        201:
+ *          description: CREATED
  *          content:
  *            application/json:
  *              schema:

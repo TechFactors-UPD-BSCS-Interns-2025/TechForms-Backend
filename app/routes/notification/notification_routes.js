@@ -7,6 +7,32 @@ const { NotificationController } = require('../../controllers/notification/notif
 
 /**
  *  @openapi
+ *  /api/v1/notification/create:
+ *    post:
+ *      tags: 
+ *        - Notification
+ *      description: Create Notification API.
+ *      summary: Create Notification
+ *      security: 
+ *        - bearerAuth: []
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      $ref: '#/components/schemas/NotificationGetInformation'
+ *      responses:
+ *        201:
+ *          description: CREATED
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/NotificationsGetInformationResponse'
+*/
+router.post('/create', NotificationController.create)
+
+/**
+ *  @openapi
  *  /api/v1/notification/all:
  *    get:
  *      tags: 
@@ -50,5 +76,65 @@ router.get('/all', NotificationController.all)
  *      
 */
 router.get('/:id', NotificationController.get)
+
+/**
+ *  @openapi
+ *  /api/v1/notification/{id}:
+ *    put:
+ *      tags: 
+ *        - Notification
+ *      description: Update Specific Notification by Id API.
+ *      summary: Update Specific Notification
+ *      security: 
+ *        - bearerAuth: []
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          schema:
+ *           type: integer
+ *          required: true
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      $ref: '#/components/schemas/NotificationGetInformation'
+ *      responses:
+ *        200:
+ *          description: Ok
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/NotificationGetInformationResponse'
+ *      
+*/
+router.put('/:id', NotificationController.update)
+
+/**
+ *  @openapi
+ *  /api/v1/notifiaction/{id}:
+ *    delete:
+ *      tags: 
+ *        - Notification
+ *      description: Delete Specific Notification by Id API.
+ *      summary: Delete Specific Notification
+ *      security: 
+ *        - bearerAuth: []
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          schema:
+ *           type: integer
+ *          required: true
+ *      responses:
+ *        200:
+ *          description: Ok
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/NotificationGetInformationResponse'
+ *      
+*/
+router.delete('/:id', NotificationController.delete)
 
 module.exports.NotificationRoutes = router
