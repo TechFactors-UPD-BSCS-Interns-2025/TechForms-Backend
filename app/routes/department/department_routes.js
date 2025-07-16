@@ -20,8 +20,8 @@ const { DepartmentController } = require('../../controllers/department/departmen
  *                  schema:
  *                      $ref: '#/components/schemas/DepartmentGetInformation'
  *      responses:
- *        200:
- *          description: Ok
+ *        201:
+ *          description: CREATED
  *          content:
  *            application/json:
  *              schema:

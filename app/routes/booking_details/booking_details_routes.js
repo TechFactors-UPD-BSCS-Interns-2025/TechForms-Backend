@@ -20,8 +20,8 @@ const { BookingDetailsController } = require('../../controllers/booking_details/
  *                  schema:
  *                      $ref: '#/components/schemas/BookingDetailsGetInformation'
  *      responses:
- *        200:
- *          description: Ok
+ *        201:
+ *          description: CREATED
  *          content:
  *            application/json:
  *              schema:
