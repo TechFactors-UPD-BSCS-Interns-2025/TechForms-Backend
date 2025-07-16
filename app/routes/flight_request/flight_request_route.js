@@ -135,6 +135,6 @@ router.put('/:id', FlightRequestController.update)
  *                $ref: '#/components/schemas/FlightRequestGetInformationResponse'
  *      
 */
-router.delete('/:id', ApproverController.delete)
+router.delete('/:id', FlightRequestController.delete)
 
 module.exports.FlightRequestRoutes = router

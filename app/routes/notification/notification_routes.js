@@ -112,7 +112,7 @@ router.put('/:id', NotificationController.update)
 
 /**
  *  @openapi
- *  /api/v1/notifiaction/{id}:
+ *  /api/v1/notification/{id}:
  *    delete:
  *      tags: 
  *        - Notification

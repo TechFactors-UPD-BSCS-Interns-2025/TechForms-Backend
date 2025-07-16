@@ -52,7 +52,7 @@ module.exports = {
         type: Sequelize.TEXT
       },
       booking_id: {
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER
       },
       created_by: {
         type: Sequelize.INTEGER

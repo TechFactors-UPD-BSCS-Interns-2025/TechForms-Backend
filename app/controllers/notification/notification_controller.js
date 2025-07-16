@@ -36,7 +36,7 @@ const NotificationController = {
   get: async (req, res) => {
     await sequelize.transaction(async (t) => {
       try {
-        const notification = await notification.findOne(
+        const notification = await Notification.findOne(
           {
             where: {
               id: req.params.id,
