@@ -1,12 +1,14 @@
 const { Op } = require("sequelize");
 
-const { FlightRequest, sequelize } = require("../../models/");
+const { FlightRequest, sequelize, UserProfile, PurposeOfTravel } = require("../../models/");
 
 const { CREATED, INTERNAL_SERVER_ERROR, NOT_FOUND, OK, PRECONDITION_FAILED } = require('../../constants/http/status_codes');
+const moment = require('moment-timezone');
 
 
 const FlightRequestController = {
-  create: async (req, res) => {
+  create: async (req, res) => {  
+
     await sequelize.transaction(async (t) => {
       try{
         const flightRequest = await FlightRequest.create({
@@ -15,12 +17,12 @@ const FlightRequestController = {
           'purpose_id': req.body.purpose_id,
           'purpose_others': req.body.purpose_others,
           'start_business': req.body.start_business,
-          'end_business': req.body.end_business,
-          'departure_date': req.body.departure_date,
-          'departure_time': req.body.departure_time,
+          'end_business':  req.body.end_business,
+          'departure_date': moment(req.body.departure_date).tz('Asia/Manila').format('YYYY-MM-DD'),
+          'departure_time': moment(req.body.departure_date).tz('Asia/Manila').format('HH:mm:ss'),
           'departure_city': req.body.departure_city,
           'return_date': req.body.return_date,
-          'return_time': req.body.return_time,
+          'return_time': moment(new Date(req.body.return_date)).tz('Asia/Manila').format('HH:mm:ss'),
           'return_city': req.body.return_city,
           'approver_id': req.body.approver_id,
           'remarks': req.body.remarks,
@@ -78,7 +80,7 @@ const FlightRequestController = {
             },
             attributes: [
                 'id', 
-                'profile_id', 
+                // 'profile_id', 
                 'flier_id', 
                 'purpose_id', 
                 'purpose_others', 
@@ -93,12 +95,21 @@ const FlightRequestController = {
                 'approver_id', 
                 'remarks', 
                 'booking_id', 
-                'created_by', 
-                'created_at', 
-                'updated_by', 
-                'updated_at', 
-                'deleted_by', 
-                'deleted_at',
+                // 'created_by', 
+                // 'created_at', 
+                // 'updated_by', 
+                // 'updated_at', 
+                // 'deleted_by', 
+                // 'deleted_at',
+            ],
+            include: [
+              {
+                model: UserProfile,
+                attributes: ['id','first_name', 'middle_name', 'last_name']
+              },
+              {
+                model: PurposeOfTravel,
+              }
             ]
           },
         );

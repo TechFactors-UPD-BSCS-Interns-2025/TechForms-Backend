@@ -10,7 +10,12 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      models.FlightRequest.belongsTo(models.UserProfile,{
+        foreignKey:'profile_id'
+      }),
+      models.FlightRequest.belongsTo(models.PurposeOfTravel,{
+        foreignKey:'purpose_id'
+      })
     }
   }
   FlightRequest.init({
