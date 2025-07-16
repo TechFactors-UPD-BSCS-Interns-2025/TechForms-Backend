@@ -5,8 +5,6 @@
  *     UserCredentialsGetInformation:
  *       type: object
  *       properties:
- *         id:
- *           type: integer
  *         profile_id:
  *           type: integer
  *         username:
