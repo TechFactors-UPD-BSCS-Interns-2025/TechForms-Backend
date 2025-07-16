@@ -16,8 +16,8 @@ const { FormTypeController } = require('../../controllers/form_type/form_type_co
  *      security: 
  *        - bearerAuth: []
  *      responses:
- *        200:
- *          description: Ok
+ *        201:
+ *          description: CREATED
  *          content:
  *            application/json:
  *              schema:

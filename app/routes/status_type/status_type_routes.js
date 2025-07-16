@@ -14,8 +14,8 @@ const { StatusTypeController } = require('../../controllers/status_type/status_t
  *      security: 
  *        - bearerAuth: []
  *      responses:
- *        200:
- *          description: Ok
+ *        201:
+ *          description: CREATED
  *          content:
  *            application/json:
  *              schema:
