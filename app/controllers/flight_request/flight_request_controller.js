@@ -1,9 +1,8 @@
 const { Op } = require("sequelize");
 
-const { FlightRequest, sequelize } = require("../../models/");
+const { Flier, Approver, PurposeOfTravel, FlightRequest, sequelize } = require("../../models/");
 
 const { CREATED, INTERNAL_SERVER_ERROR, NOT_FOUND, OK, PRECONDITION_FAILED } = require('../../constants/http/status_codes');
-
 
 const FlightRequestController = {
   create: async (req, res) => {
@@ -78,9 +77,7 @@ const FlightRequestController = {
             },
             attributes: [
                 'id', 
-                'profile_id', 
-                'flier_id', 
-                'purpose_id', 
+                'profile_id',
                 'purpose_others', 
                 'start_business', 
                 'end_business', 
@@ -89,8 +86,7 @@ const FlightRequestController = {
                 'departure_city', 
                 'return_date', 
                 'return_time', 
-                'return_city', 
-                'approver_id', 
+                'return_city',
                 'remarks', 
                 'booking_id', 
                 'created_by', 
@@ -99,7 +95,21 @@ const FlightRequestController = {
                 'updated_at', 
                 'deleted_by', 
                 'deleted_at',
-            ]
+            ],
+            include: [
+              {
+              model: PurposeOfTravel,
+              attributes: ['id', 'purpose_name'],
+              },
+              {
+              model: Approver,
+              attributes: ['id', 'approver_name'],
+              },
+              {
+              model: Flier,
+              attributes: ['id', 'first_name', 'middle_name', 'last_name', 'birthday', 'extensions', 'title'],
+              },
+            ],
           },
         );
 
