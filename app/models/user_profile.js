@@ -16,6 +16,9 @@ module.exports = (sequelize, DataTypes) => {
       // models.UserProfile.belongsTo(models.Role, {
       //   foreignKey: "role_id",
       // })
+      models.UserProfile.hasMany(models.FlightRequest,{
+        foreignKey:'profile_id'
+      })
     }
   }
   UserProfile.init(
