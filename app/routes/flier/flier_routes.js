@@ -27,7 +27,7 @@ const { FlierController } = require('../../controllers/flier/flier_controller')
  *          content:
  *            application/json:
  *              schema:
- *                $ref: '#/components/schemas/FlierGetInformationResponse'
+ *                $ref: '#/components/schemas/FliersGetInformationResponse'
 */
 router.post('/create', FlierController.create)
 

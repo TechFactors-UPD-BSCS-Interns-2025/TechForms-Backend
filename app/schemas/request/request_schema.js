@@ -5,8 +5,6 @@
  *     RequestGetInformation:
  *       type: object
  *       properties:
- *         id:
- *           type: integer
  *         form_id:
  *           type: integer
  *         status_id:
