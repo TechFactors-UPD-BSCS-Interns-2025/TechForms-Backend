@@ -62,9 +62,9 @@ const FlightRequestController = {
             'deleted_at',
         ]
         });
-        res.json(flightRequests);
+        return res.json(flightRequests);
       } catch (error) {
-        res.status(INTERNAL_SERVER_ERROR).json({message: error.message});
+        return res.status(INTERNAL_SERVER_ERROR).json({message: error.message});
       }
     });
   },
@@ -104,17 +104,14 @@ const FlightRequestController = {
         );
 
         if (!flightRequest) {
-          res.status(NOT_FOUND).json({
+          return res.status(NOT_FOUND).json({
             message: `No matching record with ${req.params.id}`,
-          });
-          return;
+          });          
         }
 
-        res.status(OK).json(flightRequest);
-        return;
+        return res.status(OK).json(flightRequest);        
       } catch (error) {
-        res.status(INTERNAL_SERVER_ERROR).json({ message: error.message });
-        return;
+        return res.status(INTERNAL_SERVER_ERROR).json({ message: error.message });        
       }
     });
   },
