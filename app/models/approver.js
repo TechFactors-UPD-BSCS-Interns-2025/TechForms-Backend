@@ -10,7 +10,9 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Approver.hasMany(models.FlightRequest, {
+        foreignKey: 'approver_id',
+      });
     }
   }
   Approver.init({

@@ -10,7 +10,9 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Flier.hasOne(models.FlightRequest, {
+        foreignKey: 'flier_id',
+      });
     }
   }
   Flier.init({
