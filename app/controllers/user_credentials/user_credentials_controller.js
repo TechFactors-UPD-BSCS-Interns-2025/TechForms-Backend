@@ -28,7 +28,6 @@ const UserCredentialsController = {
         const user_credentials = await UserCredentials.findAll({
           attributes: [
             'id', 
-            'profile_id', 
             'username', 
             'password', 
             'email', 
@@ -39,6 +38,7 @@ const UserCredentialsController = {
             {
               model: UserProfile,
               attributes: [
+                'id',
                 'first_name',
                 'middle_name',
                 'last_name',
@@ -64,18 +64,18 @@ const UserCredentialsController = {
               id: req.params.id,
             },
             attributes: [
-            'id', 
-            'profile_id', 
-            'username', 
-            'password', 
-            'email', 
-            'created_by', 
-            'phone', 
+              'id', 
+              'username', 
+              'password', 
+              'email', 
+              'created_by', 
+              'phone', 
             ],
             include: [
               {
                 model: UserProfile,
                 attributes: [
+                  'id',
                   'first_name',
                   'middle_name',
                   'last_name',

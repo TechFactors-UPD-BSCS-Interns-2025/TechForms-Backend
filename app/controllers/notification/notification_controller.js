@@ -1,6 +1,6 @@
 const { Op } = require("sequelize");
 
-const { Notification, sequelize } = require("../../models/");
+const { Notification, sequelize, UserProfile } = require("../../models/");
 
 const { CREATED, INTERNAL_SERVER_ERROR, NOT_FOUND, OK, PRECONDITION_FAILED } = require('../../constants/http/status_codes');
 
@@ -10,7 +10,7 @@ const NotificationController = {
     await sequelize.transaction(async (t) => {
       try{
         const notification = await Notification.create({      
-          'user_id': req.body.user_id,
+          'profile_id': req.body.profile_id,
           'message': req.body.message,
           'is_read': req.body.is_read,
           // 'created_by': req.user.id,
@@ -25,7 +25,27 @@ const NotificationController = {
     await sequelize.transaction(async (t) => {
       try {
         const notifications = await Notification.findAll({
-          attributes: ['id', 'user_id', 'message', 'is_read', 'created_by', 'created_at', 'updated_by', 'updated_at', 'deleted_by', 'deleted_at']
+          attributes: [
+            'id', 
+            'message', 
+            'is_read', 
+            'created_by', 
+            'created_at', 
+          ],
+          include: [
+            {
+              model: UserProfile,
+              attributes: [
+                'id',
+                'first_name',
+                'middle_name',
+                'last_name',
+                'department_id',
+                'role_id',
+                'profile_photo'
+              ]
+            }
+          ]
         });
         return res.json(notifications);
       } catch (error) {
@@ -41,8 +61,27 @@ const NotificationController = {
             where: {
               id: req.params.id,
             },
-            attributes: ['id', 'user_id', 'message', 'is_read', 'created_by', 'created_at', 'updated_by', 'updated_at', 'deleted_by', 'deleted_at']
-          
+            attributes: [
+              'id', 
+              'message', 
+              'is_read', 
+              'created_by', 
+              'created_at', 
+            ],
+            include: [
+              {
+                model: UserProfile,
+                attributes: [
+                  'id',
+                  'first_name',
+                  'middle_name',
+                  'last_name',
+                  'department_id',
+                  'role_id',
+                  'profile_photo'
+                ]
+              }
+            ]
           },
         );
 
@@ -69,7 +108,7 @@ const NotificationController = {
           return res.status(NOT_FOUND).json({message: "Notification Not Found"});          
         } 
         await notification.update({
-          user_id: req.body.user_id,
+          profile_id: req.body.profile_id,
           message: req.body.message,
           is_read: req.body.is_read,
           // updated_by: req.user.id

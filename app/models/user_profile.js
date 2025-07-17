@@ -17,7 +17,10 @@ module.exports = (sequelize, DataTypes) => {
       }),
       UserProfile.hasOne(models.UserCredentials, {
         foreignKey: "profile_id",
-      })
+      }),
+      models.UserProfile.hasMany(models.Notification, {
+        foreignKey: "profile_id",
+      }),
       UserProfile.hasMany(models.FlightRequest, {
         foreignKey: 'profile_id',
       });
