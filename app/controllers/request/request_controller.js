@@ -1,6 +1,6 @@
 const { Op } = require("sequelize");
 
-const { Request, sequelize } = require("../../models/");
+const { FormType, StatusType, BookingDetails, UserProfile, Flier, Approver, PurposeOfTravel ,FlightRequest, Request, sequelize } = require("../../models/");
 
 const { CREATED, INTERNAL_SERVER_ERROR, NOT_FOUND, OK, PRECONDITION_FAILED } = require('../../constants/http/status_codes');
 
@@ -24,7 +24,7 @@ const RequestController = {
     await sequelize.transaction(async (t) => {
       try {
         const requests = await Request.findAll({
-          attributes: ['id', 'form_id', 'status_id', 'created_by', 'created_at', 'updated_by', 'updated_at', 'deleted_by', 'deleted_at']
+          attributes: ['id', 'form_id', 'status_id', 'created_by', 'created_at', 'updated_by', 'updated_at']
         });
         return res.json(requests);
       } catch (error) {
@@ -40,8 +40,52 @@ const RequestController = {
             where: {
               id: req.params.id,
             },
-            attributes: ['id', 'form_id', 'status_id', 'created_by', 'created_at', 'updated_by', 'updated_at', 'deleted_by', 'deleted_at']
-          
+            attributes: ['id', 'form_id', 'status_id', 'created_by', 'created_at', 'updated_by', 'updated_at'],
+            include: [
+              {
+                model: FormType,
+                attributes: ['id', 'form_name'],
+              },
+              {
+                model: FlightRequest,
+                attributes: [
+                  'id',
+                  'purpose_others', 
+                  'start_business', 
+                  'end_business', 
+                  'departure_date', 
+                  'departure_time', 
+                  'departure_city', 
+                  'return_date', 
+                  'return_time', 
+                  'return_city',
+                  'remarks', 
+                  'booking_id',
+                ],
+                include: [
+                  {
+                    model: PurposeOfTravel,
+                    attributes: ['id', 'purpose_name'],
+                  },
+                  {
+                    model: Approver,
+                    attributes: ['id', 'approver_name'],
+                  },
+                  {
+                    model: Flier,
+                    attributes: ['id', 'first_name', 'middle_name', 'last_name', 'birthday', 'extensions', 'title'],
+                  },
+                  {
+                    model: UserProfile,
+                    attributes: ['id', 'first_name', 'middle_name', 'last_name', 'department_id', 'role_id', 'profile_photo'],
+                  },
+                  {
+                    model: BookingDetails,
+                    attributes: ['departure_ref_no', 'departure_cost', 'departure_ticket_path', 'return_ref_no', 'return_cost', 'return_ticket_path'],
+                  },
+                ]
+              },
+            ],
           },
         );
 

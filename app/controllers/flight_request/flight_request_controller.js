@@ -1,6 +1,6 @@
 const { Op } = require("sequelize");
 
-const { Flier, Approver, PurposeOfTravel, FlightRequest, sequelize } = require("../../models/");
+const { BookingDetails, UserProfile, Flier, Approver, PurposeOfTravel, FlightRequest, sequelize } = require("../../models/");
 
 const { CREATED, INTERNAL_SERVER_ERROR, NOT_FOUND, OK, PRECONDITION_FAILED } = require('../../constants/http/status_codes');
 
@@ -56,9 +56,7 @@ const FlightRequestController = {
             'created_by', 
             'created_at', 
             'updated_by', 
-            'updated_at', 
-            'deleted_by', 
-            'deleted_at',
+            'updated_at',             
         ]
         });
         return res.json(flightRequests);
@@ -76,8 +74,7 @@ const FlightRequestController = {
               id: req.params.id,
             },
             attributes: [
-                'id', 
-                'profile_id',
+                'id',
                 'purpose_others', 
                 'start_business', 
                 'end_business', 
@@ -92,9 +89,7 @@ const FlightRequestController = {
                 'created_by', 
                 'created_at', 
                 'updated_by', 
-                'updated_at', 
-                'deleted_by', 
-                'deleted_at',
+                'updated_at',             
             ],
             include: [
               {
@@ -109,6 +104,14 @@ const FlightRequestController = {
               model: Flier,
               attributes: ['id', 'first_name', 'middle_name', 'last_name', 'birthday', 'extensions', 'title'],
               },
+              {
+              model: UserProfile,
+              attributes: ['id', 'first_name', 'middle_name', 'last_name', 'department_id', 'role_id', 'profile_photo'],
+              },
+              {
+              model: BookingDetails,
+              attributes: ['departure_ref_no', 'departure_cost', 'departure_ticket_path', 'return_ref_no', 'return_cost', 'return_ticket_path'],
+              }
             ],
           },
         );

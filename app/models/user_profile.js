@@ -9,15 +9,18 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      models.UserProfile.belongsTo(models.Department, {
+      UserProfile.belongsTo(models.Department, {
         foreignKey: "department_id",
       }),
-      models.UserProfile.belongsTo(models.Role, {
+      UserProfile.belongsTo(models.Role, {
         foreignKey: "role_id",
       }),
-      models.UserProfile.hasOne(models.UserCredentials, {
+      UserProfile.hasOne(models.UserCredentials, {
         foreignKey: "profile_id",
       })
+      UserProfile.hasMany(models.FlightRequest, {
+        foreignKey: 'profile_id',
+      });
     }
   }
   UserProfile.init(

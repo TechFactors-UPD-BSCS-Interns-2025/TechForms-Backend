@@ -19,6 +19,15 @@ module.exports = (sequelize, DataTypes) => {
       FlightRequest.belongsTo(models.Flier, {
         foreignKey: 'flier_id',
       });
+      FlightRequest.belongsTo(models.UserProfile, {
+        foreignKey: 'profile_id',
+      });
+      FlightRequest.belongsTo(models.BookingDetails, {
+        foreignKey: 'booking_id',
+      });
+      FlightRequest.hasOne(models.Request, {
+        foreignKey: 'id',
+      })
     }
   }
   FlightRequest.init({
