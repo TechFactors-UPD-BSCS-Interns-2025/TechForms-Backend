@@ -47,6 +47,10 @@ const RequestController = {
                 attributes: ['id', 'form_name'],
               },
               {
+                model: StatusType,
+                attributes: ['id', 'status_name'],
+              },
+              {
                 model: FlightRequest,
                 attributes: [
                   'id',

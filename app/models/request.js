@@ -16,6 +16,9 @@ module.exports = (sequelize, DataTypes) => {
       Request.belongsTo(models.FormType, {
         foreignKey: 'form_id',
       });
+      Request.belongsTo(models.StatusType, {
+        foreignKey: 'status_id',
+      });
     }
   }
   Request.init({
