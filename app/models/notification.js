@@ -10,11 +10,13 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      models.Notification.belongsTo(models.UserProfile, {
+        foreignKey: "profile_id"
+      })
     }
   }
   Notification.init({
-    user_id: DataTypes.INTEGER,
+    profile_id: DataTypes.INTEGER,
     message: DataTypes.STRING,
     is_read: DataTypes.BOOLEAN,
     created_by: DataTypes.INTEGER,
