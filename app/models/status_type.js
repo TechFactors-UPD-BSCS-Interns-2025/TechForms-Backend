@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      StatusType.hasOne(models.Request, {
+      StatusType.hasMany(models.Request, {
         foreignKey: 'status_id',
       });
     }
