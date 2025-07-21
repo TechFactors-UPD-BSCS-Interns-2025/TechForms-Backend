@@ -19,7 +19,9 @@ module.exports = (sequelize, DataTypes) => {
       Request.belongsTo(models.StatusType, {
         foreignKey: 'status_id',
       });
-
+      Request.hasMany(models.ProgressUpdate, {
+        foreignKey: 'request_id',
+      });
     }
   }
   Request.init({
