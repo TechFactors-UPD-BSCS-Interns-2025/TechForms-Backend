@@ -15,14 +15,26 @@ module.exports = {
       status_id: {
         type: Sequelize.INTEGER
       },
-      createdAt: {
+      created_by: {
+        type: Sequelize.INTEGER
+      },
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE
       },
-      updatedAt: {
+      updated_by: {
+        type: Sequelize.INTEGER
+      },
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE
-      }
+      },
+      deleted_at: {
+        type: Sequelize.DATE
+      },
+      deleted_by: {
+        type: Sequelize.INTEGER
+      },
     });
   },
   async down(queryInterface, Sequelize) {
