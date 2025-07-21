@@ -24,7 +24,7 @@ const RequestController = {
     await sequelize.transaction(async (t) => {
       try {
         const requests = await Request.findAll({
-          attributes: ['id', 'form_id', 'status_id', 'created_by', 'created_at', 'updated_by', 'updated_at']
+          attributes: ['id', 'created_by', 'created_at', 'updated_by', 'updated_at']
         });
         return res.json(requests);
       } catch (error) {
@@ -45,6 +45,10 @@ const RequestController = {
               {
                 model: FormType,
                 attributes: ['id', 'form_name'],
+              },
+              {
+                model: StatusType,
+                attributes: ['id', 'status_name'],
               },
               {
                 model: FlightRequest,
