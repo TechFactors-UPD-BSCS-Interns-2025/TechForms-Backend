@@ -67,7 +67,7 @@ const FormTypeController = {
     await sequelize.transaction(async (t) => {
       try{
         const {id} = req.params;
-        const {status_name, updated_by} = req.body;
+        const {form_name, updated_by} = req.body;
         const form_type = await FormType.findByPk(id)
 
         if (!form_type) {
