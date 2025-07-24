@@ -1,8 +1,9 @@
 const { Op } = require("sequelize");
 
-const { UserCredentials, sequelize, UserProfile } = require("../../models/");
+const { UserCredentials, sequelize, UserProfile, Department, Role } = require("../../models/");
 
 const { CREATED, INTERNAL_SERVER_ERROR, NOT_FOUND, OK, PRECONDITION_FAILED } = require('../../constants/http/status_codes');
+
 
 
 const UserCredentialsController = {
@@ -26,30 +27,42 @@ const UserCredentialsController = {
     await sequelize.transaction(async (t) => {
       try {
         const user_credentials = await UserCredentials.findAll({
-          attributes: [
-            'id', 
-            'username', 
-            'password', 
-            'email', 
-            'created_by', 
-            'phone', 
-          ],
+          attributes: ['id','username','password','email','phone'],
           include: [
             {
               model: UserProfile,
-              attributes: [
-                'id',
-                'first_name',
-                'middle_name',
-                'last_name',
-                'department_id',
-                'role_id',
-                'profile_photo',
-              ],
+              attributes: ['id','first_name','middle_name','last_name','profile_photo'],
+              include: [
+                {
+                  model: Department,
+                  attributes: ['department_name']
+                },
+                {
+                  model: Role,
+                  attributes: ['role_name']
+                }
+              ]
             }
           ]
         });
-        return res.json(user_credentials);
+      
+        const formatted_users = user_credentials.map(account => {
+          const profile = account.UserProfile
+          return {
+            id: account.id,
+            username: account.username,
+            password: account.password,
+            email: account.email,
+            phone: account.phone,
+            first_name: profile?.first_name,
+            middle_name: profile?.middle_name,
+            last_name: profile?.last_name,
+            department_name: profile?.Department?.department_name,
+            role_name: profile?.Role?.role_name,
+            profile_photo: profile?.profile_photo,
+          }
+        })
+        return res.json(formatted_users);
       } catch (error) {
         return res.status(INTERNAL_SERVER_ERROR).json({message: error.message});
       }
@@ -63,26 +76,21 @@ const UserCredentialsController = {
             where: {
               id: req.params.id,
             },
-            attributes: [
-              'id', 
-              'username', 
-              'password', 
-              'email', 
-              'created_by', 
-              'phone', 
-            ],
+            attributes: ['id','username','password','email','phone'],
             include: [
               {
                 model: UserProfile,
-                attributes: [
-                  'id',
-                  'first_name',
-                  'middle_name',
-                  'last_name',
-                  'department_id',
-                  'role_id',
-                  'profile_photo',
-                ],
+                attributes: ['id','first_name','middle_name','last_name','profile_photo'],
+                include: [
+                  {
+                    model: Department,
+                    attributes: ['department_name']
+                  },
+                  {
+                    model: Role,
+                    attributes: ['role_name']
+                  }
+                ]
               }
             ]
           },
@@ -94,7 +102,22 @@ const UserCredentialsController = {
           });
         }
 
-        return res.status(OK).json(user_credentials);
+        const profile = user_credentials.UserProfile
+        const formatted_user = {
+          id: user_credentials.id,
+          username: user_credentials.username,
+          password: user_credentials.password,
+          email: user_credentials.email,
+          phone: user_credentials.phone,
+          first_name: profile?.first_name,
+          middle_name: profile?.middle_name,
+          last_name: profile?.last_name,
+          department_name: profile?.Department?.department_name,
+          role_name: profile?.Role?.role_name,
+          profile_photo: profile?.profile_photo,
+        }
+
+        return res.status(OK).json(formatted_user);
       } catch (error) {
         return res.status(INTERNAL_SERVER_ERROR).json({ message: error.message });
       }
