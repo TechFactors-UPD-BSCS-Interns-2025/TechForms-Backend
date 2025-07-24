@@ -3,38 +3,36 @@ const { Op } = require("sequelize");
 const { FormType, sequelize } = require("../../models/");
 
 const { CREATED, INTERNAL_SERVER_ERROR, NOT_FOUND, OK, PRECONDITION_FAILED } = require('../../constants/http/status_codes');
-const { message } = require("mailersend/src/modules/messages");
 
 
 const FormTypeController = {
-
   create: async (req, res) => {
     await sequelize.transaction(async (t) => {
-      try {
-        const {form_name, created_by} = req.body;
-        const newFormType = await FormType.create(
-          {form_name, created_by},
-          {transaction: t}
-        );
-        return res.status(CREATED).json(newFormType);
-      } catch (error) {
-        restart.status(INTERNAL_SERVER_ERROR).json({message: error.message});
-        return;
+      try{
+        const form_type = await FormType.create({      
+          'form_name': req.body.form_name,
+        }, {transaction: t});
+        
+        return res.status(CREATED).json({FormType: form_type});
+      } catch(error){
+        return res.status(INTERNAL_SERVER_ERROR).json({message: error.message})
       }
-    });
+    })
   },
+
   all: async (req, res) => {
     await sequelize.transaction(async (t) => {
       try {
         const form_types = await FormType.findAll({
-          attributes: ['id', 'form_name', 'created_by', 'created_at', 'updated_by', 'updated_at', 'deleted_by', 'deleted_at']
+          attributes: ['id', 'form_name', 'created_by', 'created_at', 'updated_by', 'updated_at']
         });
-        res.json(form_types);
+        return res.json(form_types);
       } catch (error) {
-        res.status(INTERNAL_SERVER_ERROR).json({message: error.message});
+        return res.status(INTERNAL_SERVER_ERROR).json({message: error.message});
       }
     });
   },
+
   get: async (req, res) => {
     await sequelize.transaction(async (t) => {
       try {
@@ -43,74 +41,65 @@ const FormTypeController = {
             where: {
               id: req.params.id,
             },
-            attributes: ['id', 'form_name', 'created_by', 'created_at', 'updated_by', 'updated_at', 'deleted_by', 'deleted_at']
+            attributes: ['id', 'form_name', 'created_by', 'created_at', 'updated_by', 'updated_at']
           
           },
         );
 
         if (!form_type) {
-          res.status(NOT_FOUND).json({
+          return res.status(NOT_FOUND).json({
             message: `No matching record with ${req.params.id}`,
           });
-          return;
         }
 
-        res.status(OK).json(form_type);
-        return;
+        return res.status(OK).json(form_type);
       } catch (error) {
-        res.status(INTERNAL_SERVER_ERROR).json({ message: error.message });
-        return;
+        return res.status(INTERNAL_SERVER_ERROR).json({ message: error.message });
       }
     });
   },
+
   update: async (req, res) => {
-    await sequelize.transaction(async (t) => {
-      try{
-        const {id} = req.params;
-        const {form_name, updated_by} = req.body;
-        const form_type = await FormType.findByPk(id)
+    await sequelize.transaction(async(t) => {
+      try {
+        const form_type = await FormType.findOne({
+          where: { id: req.params.id }
+        });
 
         if (!form_type) {
-          return res.status(NOT_FOUND).json({message: "Not found"})
+          return res.status(NOT_FOUND).json({ message: "Form Type Not Found" })
         }
 
-        await form_type.update(
-          {form_name, updated_by},
-          {transaction: t}
-        );
+        await form_type.update({
+          form_name: req.body.form_name
+        });
 
-        return res.status(OK).json(form_type)
-      } catch (error) {
-          res.status(INTERNAL_SERVER_ERROR).json({message: error.message});
-          return;
+        return res.status(OK).json({FormType: form_type});
+
+      } catch(error) {
+        return res.status(INTERNAL_SERVER_ERROR).json({ message: error.message });
       }
     });
   },
+  
   delete: async (req, res) => {
-    await sequelize.transaction(async (t) => {
-      try{
-        const {id} = req.params;
-        const {deleted_by} = req.body;
+    await sequelize.transaction(async(t) => {
+      try {
+        const form_type = await FormType.findOne({
+          where: { id: req.params.id }
+        })
 
-        const form_type = await FormType.findByPk(id);
-
-        if (!form_type){
-          return res.status(NOT_FOUND).json({message: "Not found"})
+        if (!form_type) {
+          return res.status(NOT_FOUND).json({ message: 'Form Type Not Found' })
         }
 
-        await form_type.destroy(
-          {
-            // deleted_at: new Date(), deleted_by
-            force: false
+        await form_type.destroy({
+          force: false,
+        }, {transaction: t});
 
-          },
-          {transaction: t}
-        )
-
-        return res.status(OK).json({message: "Deleted succesfully"});
-      } catch (error){
-        res.status(INTERNAL_SERVER_ERROR).json({message: error.message});
-        return;
+        return res.status(OK).json({ message: 'Form Type Destroyed' })
+      } catch(error) {
+        return res.status(INTERNAL_SERVER_ERROR).json({ message: error.message })
       }
     });
   }

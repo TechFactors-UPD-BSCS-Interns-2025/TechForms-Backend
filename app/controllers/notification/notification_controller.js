@@ -15,7 +15,7 @@ const NotificationController = {
           'is_read': req.body.is_read,
           // 'created_by': req.user.id,
         }, {transaction: t});
-        return res.status(OK).json({Notification: notification});
+        return res.status(CREATED).json({Notification: notification});
       } catch(error){
         return res.status(INTERNAL_SERVER_ERROR).json({message: error.message})
       }

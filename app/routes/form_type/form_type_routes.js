@@ -16,8 +16,8 @@ const { FormTypeController } = require('../../controllers/form_type/form_type_co
  *      security: 
  *        - bearerAuth: []
  *      responses:
- *        201:
- *          description: CREATED
+ *        200:
+ *          description: Ok
  *          content:
  *            application/json:
  *              schema:
@@ -53,7 +53,7 @@ router.get('/:id', FormTypeController.get)
 
 /** 
  *  @openapi
- *  /api/v1/form_type:
+ *  /api/v1/form_type/create:
  *      post:
  *          tags:
  *              - FormType
@@ -66,7 +66,7 @@ router.get('/:id', FormTypeController.get)
  *              content:
  *                  application/json:
  *                      schema:
- *                          $ref: '#/components/schemas/FormTypeCreateInput'   
+ *                          $ref: '#/components/schemas/FormTypeGetInformation'   
  *          responses:
  *              201:
  *                  description: Created
@@ -75,7 +75,7 @@ router.get('/:id', FormTypeController.get)
  *                          schema:
  *                              #ref: '#/components/schema/FormTypeGetInformationResponses'
  */             
-router.post('/', FormTypeController.create)
+router.post('/create', FormTypeController.create)
 
 /**
  *  @openapi
@@ -98,10 +98,10 @@ router.post('/', FormTypeController.create)
  *        content:
  *          application/json:
  *            schema:
- *              $ref: '#/components/schemas/FormTypeUpdateInput'
+ *              $ref: '#/components/schemas/FormTypeGetInformation'
  *      responses:
  *        200:
- *          description: Updated
+ *          description: Ok
  *          content:
  *            application/json:
  *              schema:
@@ -115,7 +115,7 @@ router.put('/:id', FormTypeController.update);
  *    delete:
  *      tags:
  *        - FormType
- *      description: Soft delete a FormType
+ *      description: Delete Specific FormType by Id API
  *      summary: Delete FormType
  *      security:
  *        - bearerAuth: []
@@ -125,25 +125,13 @@ router.put('/:id', FormTypeController.update);
  *          schema:
  *            type: integer
  *          required: true
- *      requestBody:
- *        required: true
- *        content:
- *          application/json:
- *            schema:
- *              type: object
- *              properties:
- *                deleted_by:
- *                  type: integer
  *      responses:
  *        200:
- *          description: Deleted
+ *          description: Ok
  *          content:
  *            application/json:
  *              schema:
- *                type: object
- *                properties:
- *                  message:
- *                    type: string
+ *                $ref: '#/components/schemas/FormTypeGetInformationResponse'
  */
 router.delete('/:id', FormTypeController.delete);
 

@@ -51,7 +51,7 @@ router.get('/:id', StatusTypeController.get);
 
 /**
  *  @openapi
- *  /api/v1/status_type:
+ *  /api/v1/status_type/create:
  *    post:
  *      tags:
  *        - StatusType
@@ -73,7 +73,7 @@ router.get('/:id', StatusTypeController.get);
  *              schema:
  *                $ref: '#/components/schemas/StatusTypeGetInformationResponse'
  */
-router.post('/', StatusTypeController.create);
+router.post('/create', StatusTypeController.create);
 
 /**
  *  @openapi

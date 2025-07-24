@@ -5,8 +5,6 @@
  *     FormTypeGetInformation:
  *       type: object
  *       properties:
- *         id:
- *           type: integer
  *         form_name:
  *           type: string
  *     FormTypeGetInformationResponse:
@@ -17,21 +15,5 @@
  *       type: array
  *       items:
  *         $ref: '#/components/schemas/FormTypeGetInformationResponse'
- * 
- *     FormTypeCreateInput:
- *       type: object
- *       required:
- *         - form_name
- *       properties:
- *         form_name:
- *           type: string
- *
- *     FormTypeUpdateInput:
- *       type: object
- *       required:
- *         - form_name
- *       properties:
- *         form_name:
- *           type: string
  */
 
