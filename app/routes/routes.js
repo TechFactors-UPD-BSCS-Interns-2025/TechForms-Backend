@@ -13,6 +13,7 @@ const { BookingDetailsRoutes } = require("./booking_details/booking_details_rout
 const { UserCredentialsRoutes } = require("./user_credentials/user_credentials_routes");
 const { RequestRoutes } = require("./request/request_routes");
 const { NotificationRoutes } = require("./notification/notification_routes");
+const { ProgressUpdateRoutes } = require("./progress_update/progress_update_route");
 
 var router = express.Router();
 
@@ -30,5 +31,6 @@ router.use("/booking_details", BookingDetailsRoutes);
 router.use("/user_credentials", UserCredentialsRoutes);
 router.use("/request", RequestRoutes);
 router.use("/notification", NotificationRoutes);
+router.use("/progress_update", ProgressUpdateRoutes);
 
 module.exports = router;

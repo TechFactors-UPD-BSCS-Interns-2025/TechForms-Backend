@@ -1,6 +1,6 @@
 const { Op } = require("sequelize");
 
-const { FormType, StatusType, BookingDetails, UserProfile, Flier, Approver, PurposeOfTravel ,FlightRequest, Request, sequelize } = require("../../models/");
+const { ProgressUpdate, FormType, StatusType, BookingDetails, UserProfile, Flier, Approver, PurposeOfTravel ,FlightRequest, Request, sequelize } = require("../../models/");
 
 const { CREATED, INTERNAL_SERVER_ERROR, NOT_FOUND, OK, PRECONDITION_FAILED } = require('../../constants/http/status_codes');
 
@@ -24,7 +24,7 @@ const RequestController = {
     await sequelize.transaction(async (t) => {
       try {
         const requests = await Request.findAll({
-          attributes: ['id', 'form_id', 'status_id', 'created_by', 'created_at', 'updated_by', 'updated_at']
+          attributes: ['id', 'created_by', 'created_at', 'updated_by', 'updated_at']
         });
         return res.json(requests);
       } catch (error) {
@@ -45,6 +45,14 @@ const RequestController = {
               {
                 model: FormType,
                 attributes: ['id', 'form_name'],
+              },
+              {
+                model: StatusType,
+                attributes: ['id', 'status_name'],
+              },
+              {
+                model: ProgressUpdate,
+                attributes: ['id', 'request_id', 'status_id', 'created_by', 'created_at', 'updated_by', 'updated_at'],
               },
               {
                 model: FlightRequest,
