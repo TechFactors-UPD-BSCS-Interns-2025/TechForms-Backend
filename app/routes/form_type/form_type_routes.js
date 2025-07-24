@@ -53,7 +53,7 @@ router.get('/:id', FormTypeController.get)
 
 /** 
  *  @openapi
- *  /api/v1/form_type:
+ *  /api/v1/form_type/create:
  *      post:
  *          tags:
  *              - FormType
@@ -75,7 +75,7 @@ router.get('/:id', FormTypeController.get)
  *                          schema:
  *                              #ref: '#/components/schema/FormTypeGetInformationResponses'
  */             
-router.post('/', FormTypeController.create)
+router.post('/create', FormTypeController.create)
 
 /**
  *  @openapi
