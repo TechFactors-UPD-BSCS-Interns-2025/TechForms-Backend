@@ -4,8 +4,8 @@
  *   schemas:
  *     RequestGetInformation:
  *       type: object
- *       properties:ss
- *         flight_request_id:
+ *       properties:
+ *         form_request_id:
  *           type: integer
  *         form_id:
  *           type: integer
