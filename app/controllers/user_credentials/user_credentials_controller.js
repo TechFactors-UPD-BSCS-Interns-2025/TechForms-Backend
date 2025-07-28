@@ -1,6 +1,6 @@
 const { Op } = require("sequelize");
 
-const { UserCredentials, sequelize, UserProfile, Department, Role } = require("../../models/");
+const { Department, Role, UserCredentials, sequelize, UserProfile } = require("../../models/");
 
 const { CREATED, INTERNAL_SERVER_ERROR, NOT_FOUND, OK, PRECONDITION_FAILED } = require('../../constants/http/status_codes');
 
@@ -80,17 +80,31 @@ const UserCredentialsController = {
             include: [
               {
                 model: UserProfile,
-                attributes: ['id','first_name','middle_name','last_name','profile_photo'],
+                attributes: [
+                  'id',
+                  'first_name',
+                  'middle_name',
+                  'last_name',
+                  'department_id',
+                  'role_id',
+                  'profile_photo',
+                ],
                 include: [
                   {
                     model: Department,
-                    attributes: ['department_name']
+                    attributes: [
+                      'id',
+                      'department_name'
+                    ],
                   },
                   {
                     model: Role,
-                    attributes: ['role_name']
+                    attributes: [
+                      'id',
+                      'role_name'
+                    ]
                   }
-                ]
+                ],
               }
             ]
           },
