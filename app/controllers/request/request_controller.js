@@ -14,7 +14,8 @@ const RequestController = {
           'form_id': req.body.form_id,
           'status_id': req.body.status_id,
           // 'created_by': req.user.id,
-        }, {transaction: t});
+        }, 
+        {transaction: t});
         return res.status(CREATED).json({Request: request});
       } catch(error){
         return res.status(INTERNAL_SERVER_ERROR).json({message: error.message})
@@ -25,7 +26,7 @@ const RequestController = {
     await sequelize.transaction(async (t) => {
       try {
         const requests = await Request.findAll({
-          attributes: ['id', 'form_request_id', 'form_id', 'status_id', 'created_by', 'created_at', 'updated_by', 'updated_at']
+          attributes: ['id', 'form_request_id', 'form_id', 'status_id']
         });
         return res.json(requests);
       } catch (error) {
@@ -41,7 +42,7 @@ const RequestController = {
             where: {
               id: req.params.id,
             },
-            attributes: ['id', 'form_id', 'status_id', 'created_by', 'created_at', 'updated_by', 'updated_at'],
+            attributes: ['id', 'form_id', 'status_id'],
             include: [
               {
                 model: FormType,
