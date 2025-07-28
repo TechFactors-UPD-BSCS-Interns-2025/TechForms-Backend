@@ -31,7 +31,7 @@ module.exports = {
         type: Sequelize.DATE
       },
       departure_time: {
-        type: Sequelize.TIME
+        type: Sequelize.STRING
       },
       departure_city: {
         type: Sequelize.STRING
@@ -40,7 +40,7 @@ module.exports = {
         type: Sequelize.DATE
       },
       return_time: {
-        type: Sequelize.TIME
+        type: Sequelize.STRING
       },
       return_city: {
         type: Sequelize.STRING

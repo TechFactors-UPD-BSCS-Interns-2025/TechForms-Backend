@@ -24,7 +24,6 @@
  *           format: date
  *         departure_time:
  *           type: string
- *           format: time
  *         departure_city:
  *           type: string
  *         return_date:
@@ -32,7 +31,6 @@
  *           format: date
  *         return_time:
  *           type: string
- *           format: time
  *         return_city:
  *           type: string
  *         approver_id:
