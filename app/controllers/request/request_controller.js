@@ -10,6 +10,7 @@ const RequestController = {
     await sequelize.transaction(async (t) => {
       try{
         const request = await Request.create({
+          'flight_request_id': req.body.flight_request_id,
           'form_id': req.body.form_id,
           'status_id': req.body.status_id,
           // 'created_by': req.user.id,
@@ -24,7 +25,7 @@ const RequestController = {
     await sequelize.transaction(async (t) => {
       try {
         const requests = await Request.findAll({
-          attributes: ['id', 'created_by', 'created_at', 'updated_by', 'updated_at']
+          attributes: ['id', 'form_request_id', 'form_id', 'status_id', 'created_by', 'created_at', 'updated_by', 'updated_at']
         });
         return res.json(requests);
       } catch (error) {
