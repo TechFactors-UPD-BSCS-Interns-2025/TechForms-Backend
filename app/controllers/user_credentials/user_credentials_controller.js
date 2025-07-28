@@ -115,23 +115,8 @@ const UserCredentialsController = {
             message: `No matching record with ${req.params.id}`,
           });
         }
-
-        const profile = user_credentials.UserProfile
-        const formatted_user = {
-          id: user_credentials.id,
-          username: user_credentials.username,
-          password: user_credentials.password,
-          email: user_credentials.email,
-          phone: user_credentials.phone,
-          first_name: profile?.first_name,
-          middle_name: profile?.middle_name,
-          last_name: profile?.last_name,
-          department_name: profile?.Department?.department_name,
-          role_name: profile?.Role?.role_name,
-          profile_photo: profile?.profile_photo,
-        }
-
-        return res.status(OK).json(formatted_user);
+        
+        return res.status(OK).json(user_credentials);
       } catch (error) {
         return res.status(INTERNAL_SERVER_ERROR).json({ message: error.message });
       }
