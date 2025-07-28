@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Request.belongsTo(models.FlightRequest, {
-        foreignKey: 'id',
+        foreignKey: 'form_request_id',
       });
       Request.belongsTo(models.FormType, {
         foreignKey: 'form_id',
@@ -25,6 +25,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Request.init({
+    form_request_id: DataTypes.INTEGER,
     form_id: DataTypes.INTEGER,
     status_id: DataTypes.INTEGER,
     created_by: DataTypes.INTEGER,

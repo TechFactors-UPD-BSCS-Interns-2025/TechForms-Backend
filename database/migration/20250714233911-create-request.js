@@ -9,6 +9,9 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      form_request_id: {
+        type: Sequelize.INTEGER
+      },
       form_id: {
         type: Sequelize.INTEGER
       },

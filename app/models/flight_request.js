@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'booking_id',
       });
       FlightRequest.hasOne(models.Request, {
-        foreignKey: 'id',
+        foreignKey: 'form_request_id',
       })
     }
   }

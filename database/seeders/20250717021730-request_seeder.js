@@ -5,6 +5,7 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     await queryInterface.bulkInsert('requests', [
       {
+      form_request_id: 1,
       form_id: 1,
       status_id: 3,
       created_at: new Date(),
@@ -13,6 +14,7 @@ module.exports = {
       updated_by: 2,
       },
       {
+      form_request_id: 2,
       form_id: 1,
       status_id: 3,
       created_at: new Date(),
@@ -21,6 +23,7 @@ module.exports = {
       updated_by: 2,
       },
       {
+      form_request_id: 3,
       form_id: 1,
       status_id: 3,
       created_at: new Date(),
@@ -29,6 +32,7 @@ module.exports = {
       updated_by: 2,
       },
       {
+      form_request_id: 4,
       form_id: 1,
       status_id: 3,
       created_at: new Date(),
@@ -37,6 +41,7 @@ module.exports = {
       updated_by: 2,
       },
       {
+      form_request_id: 5,
       form_id: 1,
       status_id: 3,
       created_at: new Date(),
@@ -45,6 +50,7 @@ module.exports = {
       updated_by: 2,
       },
       {
+      form_request_id: 6,
       form_id: 1,
       status_id: 3,
       created_at: new Date(),
@@ -53,6 +59,7 @@ module.exports = {
       updated_by: 2,
       },
       {
+      form_request_id: 7,
       form_id: 1,
       status_id: 3,
       created_at: new Date(),
@@ -61,6 +68,7 @@ module.exports = {
       updated_by: 2,
       },
       {
+      form_request_id: 8,
       form_id: 1,
       status_id: 3,
       created_at: new Date(),
@@ -69,6 +77,7 @@ module.exports = {
       updated_by: 2,
       },
       {
+      form_request_id: 9,
       form_id: 1,
       status_id: 3,
       created_at: new Date(),
@@ -77,6 +86,15 @@ module.exports = {
       updated_by: 2,
       },
       {
+      form_request_id: 10,
+      status_id: 3,
+      created_at: new Date(),
+      created_by: 2,
+      updated_at: new Date(),
+      updated_by: 2,
+      },
+      {
+      form_request_id: 11,
       form_id: 1,
       status_id: 3,
       created_at: new Date(),
@@ -85,6 +103,7 @@ module.exports = {
       updated_by: 2,
       },
       {
+      form_request_id: 12,
       form_id: 1,
       status_id: 3,
       created_at: new Date(),
@@ -93,6 +112,7 @@ module.exports = {
       updated_by: 2,
       },
       {
+      form_request_id: 13,
       form_id: 1,
       status_id: 3,
       created_at: new Date(),
@@ -101,6 +121,7 @@ module.exports = {
       updated_by: 2,
       },
       {
+      form_request_id: 14,
       form_id: 1,
       status_id: 3,
       created_at: new Date(),
@@ -109,6 +130,7 @@ module.exports = {
       updated_by: 2,
       },
       {
+      form_request_id: 15,
       form_id: 1,
       status_id: 3,
       created_at: new Date(),
@@ -117,6 +139,7 @@ module.exports = {
       updated_by: 2,
       },
       {
+      form_request_id: 16,
       form_id: 1,
       status_id: 3,
       created_at: new Date(),
@@ -125,6 +148,7 @@ module.exports = {
       updated_by: 2,
       },
       {
+      form_request_id: 17,
       form_id: 1,
       status_id: 3,
       created_at: new Date(),
@@ -133,6 +157,7 @@ module.exports = {
       updated_by: 2,
       },
       {
+      form_request_id: 18,
       form_id: 1,
       status_id: 3,
       created_at: new Date(),
@@ -141,14 +166,7 @@ module.exports = {
       updated_by: 2,
       },
       {
-      form_id: 1,
-      status_id: 3,
-      created_at: new Date(),
-      created_by: 2,
-      updated_at: new Date(),
-      updated_by: 2,
-      },
-      {
+      form_request_id: 19,
       form_id: 1,
       status_id: 3,
       created_at: new Date(),
