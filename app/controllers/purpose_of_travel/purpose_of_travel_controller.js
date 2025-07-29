@@ -67,7 +67,7 @@ const PurposeOfTravelController = {
         });
 
         if(!purpose){
-          res.status(NOT_FOUND).json({message: "Purpose Not Found"});
+          return res.status(NOT_FOUND).json({message: "Purpose Not Found"});
         } 
         await purpose.update({
           purpose_name: req.body.purpose_name,
@@ -89,7 +89,7 @@ const PurposeOfTravelController = {
         });
 
         if(!purpose){
-          res.status(NOT_FOUND).json({message: "Purpose Not Found"});
+          return res.status(NOT_FOUND).json({message: "Purpose Not Found"});
         }
         
         await purpose.destroy({
