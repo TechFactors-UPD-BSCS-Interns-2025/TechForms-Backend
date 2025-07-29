@@ -16,7 +16,6 @@ const FlierController = {
           'birthday': req.body.birthday,
           'extensions': req.body.extensions,
           'title': req.body.title,
-          // 'created_by': req.user.id,
         }, {transaction: t});
         return res.status(CREATED).json({Flier: flier});
       } catch(error){

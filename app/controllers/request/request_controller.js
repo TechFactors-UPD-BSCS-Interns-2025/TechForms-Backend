@@ -9,12 +9,38 @@ const RequestController = {
   create: async (req, res) => {
     await sequelize.transaction(async (t) => {
       try{
+        const flight_request_data = {
+          "first_name": req.body.first_name1,
+          "middle_name": req.body.middle_name1,
+          "last_name": req.body.last_name1,
+          "birthday": req.body.birthday1,
+          "extensions": req.body.extensions1,
+          "title": req.body.title1,
+          "profile_id": req.body.profile_id,
+          "purpose_id": req.body.purpose,
+          "purpose_others": req.body.purpose_others,
+          "start_business": req.body.start_business,
+          "end_business": req.body.end_business,
+          "departure_date": req.body.departure_date,
+          "departure_time": req.body.departure_time,
+          'departure_city': req.body.departure_city,
+          'return_date': req.body.return_date,
+          'return_time': req.body.return_time,
+          'return_city': req.body.return_city,
+          'approver_id': req.body.approved_by,
+          'remarks': req.body.remarks,
+          'booking_id': req.body.booking_id,
+        };
+
         const request = await Request.create({
-          'flight_request_id': req.body.flight_request_id,
-          'form_id': req.body.form_id,
+          'form_id': 1,
           'status_id': req.body.status_id,
-          // 'created_by': req.user.id,
+          'created_by': req.body.profile_id,
+          'FlightRequest': flight_request_data,
         }, 
+        {
+          include: [FlightRequest]
+        },
         {transaction: t});
         return res.status(CREATED).json({Request: request});
       } catch(error){
@@ -42,7 +68,7 @@ const RequestController = {
             where: {
               id: req.params.id,
             },
-            attributes: ['id', 'form_id', 'status_id'],
+            attributes: ['id'],
             include: [
               {
                 model: FormType,
@@ -54,7 +80,7 @@ const RequestController = {
               },
               {
                 model: ProgressUpdate,
-                attributes: ['id', 'request_id', 'status_id', 'created_by', 'created_at', 'updated_by', 'updated_at'],
+                attributes: ['id', 'status_id', 'created_by', 'created_at'],
               },
               {
                 model: FlightRequest,

@@ -24,7 +24,7 @@ const ProgressUpdateController = {
     await sequelize.transaction(async (t) => {
       try {
         const progress_updates = await ProgressUpdate.findAll({
-          attributes: ['id', 'request_id', 'status_id', 'created_by', 'created_at', 'updated_by', 'updated_at']
+          attributes: ['id', 'request_id', 'status_id', 'created_by', 'created_at']
         });
         return res.json(progress_updates);
       } catch (error) {
@@ -40,7 +40,7 @@ const ProgressUpdateController = {
             where: {
               id: req.params.id,
             },
-            attributes: ['id', 'request_id', 'status_id', 'created_by', 'created_at', 'updated_by', 'updated_at']
+            attributes: ['id', 'request_id', 'status_id', 'created_by', 'created_at']
           
           },
         );
