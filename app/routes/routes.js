@@ -14,6 +14,7 @@ const { UserCredentialsRoutes } = require("./user_credentials/user_credentials_r
 const { RequestRoutes } = require("./request/request_routes");
 const { NotificationRoutes } = require("./notification/notification_routes");
 const { ProgressUpdateRoutes } = require("./progress_update/progress_update_route");
+const { PurposeJunctionRoutes } = require("./purpose_junction/purpose_junction_route");
 
 var router = express.Router();
 
@@ -32,5 +33,6 @@ router.use("/user_credentials", UserCredentialsRoutes);
 router.use("/request", RequestRoutes);
 router.use("/notification", NotificationRoutes);
 router.use("/progress_update", ProgressUpdateRoutes);
+router.use("/purpose_junction", PurposeJunctionRoutes);
 
 module.exports = router;
