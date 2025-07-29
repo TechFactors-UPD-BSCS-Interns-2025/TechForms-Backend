@@ -39,6 +39,8 @@
  *           type: string
  *         booking_id:
  *           type: integer
+ *         created_by:
+ *           type: integer
  * 
  *     FlightRequestGetInformationResponse:
  *       allOf:

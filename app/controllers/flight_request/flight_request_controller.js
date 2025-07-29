@@ -8,9 +8,16 @@ const FlightRequestController = {
   create: async (req, res) => {
     await sequelize.transaction(async (t) => {
       try{
+        const flier_data = {
+          "first_name": req.body.first_name,
+          "middle_name": req.body.middle_name,
+          "last_name": req.body.last_name,
+          "birthday": req.body.birthday,
+          "extensions": req.body.extensions,
+          "title": req.body.title,
+        };
         const flightRequest = await FlightRequest.create({
           'profile_id': req.body.profile_id,
-          'flier_id': req.body.flier_id,
           'purpose_id': req.body.purpose_id,
           'purpose_others': req.body.purpose_others,
           'start_business': req.body.start_business,
@@ -24,8 +31,13 @@ const FlightRequestController = {
           'approver_id': req.body.approver_id,
           'remarks': req.body.remarks,
           'booking_id': req.body.booking_id,
-          // 'created_by': req.user.id,
-        }, {transaction: t});
+          'created_by': req.body.profile_id,
+          'Flier': flier_data,
+        }, 
+        {
+          include: [Flier]
+        },
+        {transaction: t});
         return res.status(CREATED).json({FlightRequest: flightRequest});
       } catch(error){
         return res.status(INTERNAL_SERVER_ERROR).json({message: error.message})
