@@ -180,14 +180,22 @@ const UserCredentialsController = {
           where: { id: req.params.id }
         })
 
-        if (!user_credentials) {
-          return res.status(NOT_FOUND).json({ message: 'User Credentials Not Found' })
+        const user_profile = await UserProfile.findOne({
+          where: { id: user_credentials.profile_id }
+        })
+
+        if (!user_credentials || !user_profile) {
+          return res.status(NOT_FOUND).json({ message: 'User Not Found' })
         }
 
         await user_credentials.destroy({
           force: false
         })
-        return res.status(OK).json({ message: 'User Credentials Destroyed' })
+
+        await user_profile.destroy({
+          force: false
+        })
+        return res.status(OK).json({ message: 'User Destroyed' })
       } catch(error) {
         return res.status(INTERNAL_SERVER_ERROR).json({ message: error.message })
       }
